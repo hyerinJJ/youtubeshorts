@@ -4,7 +4,7 @@ function formatCount(n) {
   return String(n);
 }
 
-export default function ActionBar({ video, onCommentOpen, videoState, onStateChange }) {
+export default function ActionBar({ video, onCommentOpen, videoState, onStateChange, isRaised }) {
   const { isLiked, isDisliked, likeCount } = videoState;
 
   const handleLike = () => {
@@ -28,7 +28,11 @@ export default function ActionBar({ video, onCommentOpen, videoState, onStateCha
   };
 
   return (
-    <div className="absolute right-3 bottom-[118px] flex flex-col items-center gap-1.5 z-20">
+    <div
+      className={`absolute right-3 flex flex-col items-center gap-1.5 z-20 transition-[bottom] duration-200 ${
+        isRaised ? "bottom-[130px]" : "bottom-[118px]"
+      }`}
+    >
 
       {/* 좋아요 */}
       <button

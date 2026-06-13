@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function VideoInfo({ video, videoState, onStateChange }) {
+export default function VideoInfo({ video, videoState, onStateChange, isRaised }) {
   const [expanded, setExpanded] = useState(false);
   const { isSubscribed } = videoState;
 
@@ -10,7 +10,11 @@ export default function VideoInfo({ video, videoState, onStateChange }) {
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10 pointer-events-none" />
 
       {/* 하단 정보 - 왼쪽 */}
-      <div className="absolute bottom-[26px] left-3 right-20 z-20">
+      <div
+        className={`absolute left-3 right-20 z-20 transition-[bottom] duration-200 ${
+          isRaised ? "bottom-[38px]" : "bottom-[26px]"
+        }`}
+      >
         {/* 채널 아바타 + 핸들 + 구독 버튼 */}
         <div className="flex items-center gap-2.5 mb-2.5">
           <div className="w-9 h-9 rounded-full overflow-hidden shrink-0">
@@ -62,7 +66,11 @@ export default function VideoInfo({ video, videoState, onStateChange }) {
       </div>
 
       {/* 채널 썸네일 - 우측 하단 (둥근 네모) */}
-      <div className="absolute bottom-[26px] right-3 z-20 w-[52px] h-[52px] rounded-xl overflow-hidden border border-white/20 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
+      <div
+        className={`absolute right-3 z-20 w-[52px] h-[52px] rounded-xl overflow-hidden border border-white/20 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] transition-[bottom] duration-200 ${
+          isRaised ? "bottom-[38px]" : "bottom-[26px]"
+        }`}
+      >
         <img
           src={video.channel.avatarUrl}
           alt={video.channel.name}

@@ -187,9 +187,15 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
         onCommentOpen={openComments}
         videoState={videoState}
         onStateChange={onStateChange}
+        isRaised={isPausedActive}
       />
 
-      <VideoInfo video={video} videoState={videoState} onStateChange={onStateChange} />
+      <VideoInfo
+        video={video}
+        videoState={videoState}
+        onStateChange={onStateChange}
+        isRaised={isPausedActive}
+      />
 
       {/* 진행바 */}
       <div
