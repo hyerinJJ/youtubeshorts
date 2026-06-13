@@ -127,8 +127,8 @@ export default function CommentSheet({ video, videoState, onStateChange, onClose
 
         {/* 댓글 목록 */}
         <div ref={listRef} className="flex-1 overflow-y-auto overscroll-contain bg-white">
-          {allComments.map((comment, idx) => (
-            <CommentItem key={comment.id} comment={comment} onReply={handleReply} index={idx} />
+          {allComments.map((comment) => (
+            <CommentItem key={comment.id} comment={comment} onReply={handleReply} />
           ))}
           <div className="h-6" />
         </div>

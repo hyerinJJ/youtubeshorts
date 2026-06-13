@@ -1,30 +1,22 @@
 import { memo, useState } from "react";
 
-const SOLID_COLORS = [
-  "#FF0000", "#FF4500", "#FF6B35", "#FF9800", "#FFC107",
-  "#4CAF50", "#00BCD4", "#2196F3", "#3F51B5", "#9C27B0",
-  "#E91E63", "#795548", "#607D8B", "#009688", "#8BC34A",
-  "#FF5722", "#673AB7", "#03A9F4", "#F44336", "#0288D1",
-];
-
 function hashOf(str) {
   let h = 0;
   for (let i = 0; i < str.length; i++) h = str.charCodeAt(i) + ((h << 5) - h);
   return Math.abs(h);
 }
 
-function AvatarEl({ username, idx = 0, small = false }) {
+function AvatarEl({ username, small = false }) {
   const h = hashOf(username);
-  const type = (h + idx * 3) % 9;
+  const type = h % 12;
   const initial = username.trim().charAt(0).toUpperCase();
   const sizeClass = small ? "w-7 h-7 text-[11px]" : "w-9 h-9 text-xs";
   const imageClass = `${sizeClass} rounded-full shrink-0 object-cover`;
 
-  if (type === 1 || type === 4) {
-    const seed = (h * 7 + 13) % 99991;
+  if (type <= 2) {
     return (
       <img
-        src={`https://picsum.photos/seed/${seed}/40/40`}
+        src={`https://picsum.photos/seed/landscape-${h}/80/80`}
         alt=""
         className={imageClass}
         loading="lazy"
@@ -33,11 +25,10 @@ function AvatarEl({ username, idx = 0, small = false }) {
     );
   }
 
-  if (type === 2 || type === 5) {
-    const seed = (h * 7 + 13) % 99991;
-    const animalUrl = seed % 2 === 0
-      ? "https://cataas.com/cat?width=40&height=40"
-      : `https://source.unsplash.com/40x40/?dog,cat,hamster&sig=${seed}`;
+  if (type <= 5) {
+    const animalUrl = h % 2 === 0
+      ? `https://cataas.com/cat?width=80&height=80&user=${h}`
+      : `https://source.unsplash.com/80x80/?dog,cat,hamster&sig=${h}`;
 
     return (
       <img
@@ -47,34 +38,50 @@ function AvatarEl({ username, idx = 0, small = false }) {
         loading="lazy"
         decoding="async"
         onError={(event) => {
-          if (event.currentTarget.src.includes("source.unsplash.com")) {
-            event.currentTarget.src = "https://cataas.com/cat?width=40&height=40";
-          }
+          const image = event.currentTarget;
+          const retries = Number(image.dataset.retries || 0);
+          if (retries >= 2) return;
+
+          image.dataset.retries = String(retries + 1);
+          image.src = `https://cataas.com/cat?width=80&height=80&user=${h}&retry=${retries + 1}`;
         }}
       />
     );
   }
 
-  if (type === 8) {
+  if (type === 6) {
     const iconSize = small ? 15 : 20;
+    const gray = 80 + ((h >>> 5) % 121);
+    const red = Math.max(0, Math.min(255, gray + ((h >>> 12) % 13) - 6));
+    const green = Math.max(0, Math.min(255, gray + ((h >>> 17) % 13) - 6));
+    const blue = Math.max(0, Math.min(255, gray + ((h >>> 22) % 13) - 6));
+    const iconColor = gray >= 145 ? "#FFFFFF" : "#F5F5F5";
     return (
-      <div className={`${sizeClass} rounded-full bg-[#AAAAAA] flex items-center justify-center shrink-0`}>
-        <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="white" aria-hidden="true">
+      <div
+        className={`${sizeClass} rounded-full flex items-center justify-center shrink-0`}
+        style={{ backgroundColor: `rgb(${red} ${green} ${blue})` }}
+      >
+        <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill={iconColor} aria-hidden="true">
           <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
         </svg>
       </div>
     );
   }
 
-  const color = SOLID_COLORS[(h + idx * 3) % SOLID_COLORS.length];
+  const hue = h % 360;
+  const saturation = 35 + ((h >>> 4) % 61);
+  const lightness = 25 + ((h >>> 9) % 51);
+  const color = `hsl(${hue} ${saturation}% ${lightness}%)`;
+  const showInitial = type === 7 || type === 8;
+  const textColor = lightness >= 62 ? "#202124" : "#FFFFFF";
 
   return (
     <div
       className={`${sizeClass} rounded-full shrink-0 flex items-center justify-center font-semibold text-white`}
-      style={{ backgroundColor: color }}
+      style={{ backgroundColor: color, color: textColor }}
       aria-hidden="true"
     >
-      {initial}
+      {showInitial ? initial : null}
     </div>
   );
 }
@@ -106,13 +113,13 @@ const ReplyIcon = ({ size = 16 }) => (
   </svg>
 );
 
-function ReplyItem({ reply, replyIdx = 0, parentIdx = 0 }) {
+function ReplyItem({ reply }) {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(reply.likes);
 
   return (
     <div className="flex gap-2.5 mt-3">
-      <AvatarEl username={reply.user} idx={parentIdx * 10 + replyIdx + 5} small />
+      <AvatarEl username={reply.user} small />
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
@@ -139,7 +146,7 @@ function ReplyItem({ reply, replyIdx = 0, parentIdx = 0 }) {
   );
 }
 
-function CommentItem({ comment, onReply, index = 0 }) {
+function CommentItem({ comment, onReply }) {
   const [showReplies, setShowReplies] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(comment.likes);
@@ -147,7 +154,7 @@ function CommentItem({ comment, onReply, index = 0 }) {
   return (
     <div className="px-4 py-3.5 border-b border-gray-100">
       <div className="flex gap-3">
-        <AvatarEl username={comment.user} idx={index} />
+        <AvatarEl username={comment.user} />
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-1">
             <div className="flex items-center gap-2 min-w-0">
@@ -187,8 +194,8 @@ function CommentItem({ comment, onReply, index = 0 }) {
 
           {showReplies && (
             <div className="mt-1">
-              {comment.replies.map((r, ri) => (
-                <ReplyItem key={r.id} reply={r} replyIdx={ri} parentIdx={index} />
+              {comment.replies.map((r) => (
+                <ReplyItem key={r.id} reply={r} />
               ))}
             </div>
           )}
