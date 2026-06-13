@@ -8,7 +8,6 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
   const videoRef = useRef(null);
   const { isPlaying, progress, showPlayIcon, togglePlay, seek } = useVideoPlayer(videoRef);
   const [showComment, setShowComment] = useState(false);
-  const [commentsReady, setCommentsReady] = useState(false);
   const [showHeartAnim, setShowHeartAnim] = useState(false);
   const lastTapTime = useRef(0);
   const longPressTimer = useRef(null);
@@ -33,21 +32,7 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
     }
   }, [isMuted]);
 
-  useEffect(() => {
-    if (!isActive || commentsReady) return;
-
-    const prepareComments = () => setCommentsReady(true);
-    if ("requestIdleCallback" in window) {
-      const idleId = window.requestIdleCallback(prepareComments, { timeout: 1500 });
-      return () => window.cancelIdleCallback(idleId);
-    }
-
-    const timeoutId = window.setTimeout(prepareComments, 300);
-    return () => window.clearTimeout(timeoutId);
-  }, [isActive, commentsReady]);
-
   const openComments = useCallback(() => {
-    setCommentsReady(true);
     setShowComment(true);
   }, []);
 
@@ -196,15 +181,13 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
         />
       </div>
 
-      {commentsReady && (
-        <CommentSheet
-          video={video}
-          videoState={videoState}
-          onStateChange={onStateChange}
-          onClose={() => setShowComment(false)}
-          isOpen={showComment}
-        />
-      )}
+      <CommentSheet
+        video={video}
+        videoState={videoState}
+        onStateChange={onStateChange}
+        onClose={() => setShowComment(false)}
+        isOpen={showComment}
+      />
     </div>
   );
 }

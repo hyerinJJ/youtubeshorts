@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import CommentItem from "./CommentItem";
 
 export default function CommentSheet({ video, videoState, onStateChange, onClose, isOpen }) {
@@ -27,10 +27,10 @@ export default function CommentSheet({ video, videoState, onStateChange, onClose
     setReplyTo(null);
   };
 
-  const handleReply = (username) => {
+  const handleReply = useCallback((username) => {
     setReplyTo(username);
     inputRef.current?.focus();
-  };
+  }, []);
 
   const handleDragStart = (e) => {
     dragStartY.current = e.touches?.[0]?.clientY ?? e.clientY;
@@ -47,7 +47,9 @@ export default function CommentSheet({ video, videoState, onStateChange, onClose
 
   return (
     <div
-      className={`fixed inset-0 z-50 items-end justify-center ${isOpen ? "flex" : "hidden"}`}
+      className={`fixed inset-0 z-50 flex items-end justify-center ${
+        isOpen ? "visible opacity-100" : "invisible pointer-events-none opacity-0"
+      }`}
       onClick={onClose}
       aria-hidden={!isOpen}
     >

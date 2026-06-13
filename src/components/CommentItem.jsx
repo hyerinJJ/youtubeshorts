@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const SOLID_COLORS = [
   "#FF0000", "#FF4500", "#FF6B35", "#FF9800", "#FFC107",
@@ -15,9 +15,58 @@ function hashOf(str) {
 
 function AvatarEl({ username, idx = 0, small = false }) {
   const h = hashOf(username);
-  const color = SOLID_COLORS[(h + idx * 3) % SOLID_COLORS.length];
+  const type = (h + idx * 3) % 9;
   const initial = username.trim().charAt(0).toUpperCase();
   const sizeClass = small ? "w-7 h-7 text-[11px]" : "w-9 h-9 text-xs";
+  const imageClass = `${sizeClass} rounded-full shrink-0 object-cover`;
+
+  if (type === 1 || type === 4) {
+    const seed = (h * 7 + 13) % 99991;
+    return (
+      <img
+        src={`https://picsum.photos/seed/${seed}/40/40`}
+        alt=""
+        className={imageClass}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  }
+
+  if (type === 2 || type === 5) {
+    const seed = (h * 7 + 13) % 99991;
+    const animalUrl = seed % 2 === 0
+      ? "https://cataas.com/cat?width=40&height=40"
+      : `https://source.unsplash.com/40x40/?dog,cat,hamster&sig=${seed}`;
+
+    return (
+      <img
+        src={animalUrl}
+        alt=""
+        className={imageClass}
+        loading="lazy"
+        decoding="async"
+        onError={(event) => {
+          if (event.currentTarget.src.includes("source.unsplash.com")) {
+            event.currentTarget.src = "https://cataas.com/cat?width=40&height=40";
+          }
+        }}
+      />
+    );
+  }
+
+  if (type === 8) {
+    const iconSize = small ? 15 : 20;
+    return (
+      <div className={`${sizeClass} rounded-full bg-[#AAAAAA] flex items-center justify-center shrink-0`}>
+        <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="white" aria-hidden="true">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+        </svg>
+      </div>
+    );
+  }
+
+  const color = SOLID_COLORS[(h + idx * 3) % SOLID_COLORS.length];
 
   return (
     <div
@@ -90,7 +139,7 @@ function ReplyItem({ reply, replyIdx = 0, parentIdx = 0 }) {
   );
 }
 
-export default function CommentItem({ comment, onReply, index = 0 }) {
+function CommentItem({ comment, onReply, index = 0 }) {
   const [showReplies, setShowReplies] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(comment.likes);
@@ -148,3 +197,5 @@ export default function CommentItem({ comment, onReply, index = 0 }) {
     </div>
   );
 }
+
+export default memo(CommentItem);
