@@ -194,8 +194,10 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
       {/* 진행바 */}
       <div
         ref={progressBarRef}
-        className={`absolute left-0 right-0 z-30 cursor-ew-resize touch-none flex items-center transition-[bottom,height] duration-200 ${
-          isPausedActive ? "bottom-3 h-8" : "bottom-0 h-5"
+        className={`absolute left-0 right-0 z-30 flex items-center touch-none transition-[bottom,height,opacity] duration-200 ${
+          isPausedActive
+            ? "bottom-3 h-8 cursor-ew-resize opacity-100"
+            : "bottom-0 h-5 pointer-events-none opacity-0"
         }`}
         onPointerDown={handleProgressPointerDown}
         onPointerMove={handleProgressPointerMove}
