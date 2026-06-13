@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function VideoInfo({ video, videoState, onStateChange }) {
   const [expanded, setExpanded] = useState(false);
@@ -28,21 +28,21 @@ export default function VideoInfo({ video, videoState, onStateChange }) {
           </span>
           <button
             onClick={() => onStateChange({ isSubscribed: !isSubscribed })}
-            className={`shrink-0 text-sm font-semibold transition-colors duration-200 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] ${
-              isSubscribed ? "text-white/50" : "text-white"
+            className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-semibold text-white transition-colors duration-200 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] ${
+              isSubscribed ? "bg-[#303030] text-white/70" : "bg-[#212121] hover:bg-[#303030]"
             }`}
           >
             {isSubscribed ? "구독중" : "구독"}
           </button>
         </div>
 
-        {/* ▶ 음악 제목 */}
+        {/* ▶ 연관 영상 제목 */}
         <div className="flex items-center gap-2 mb-2 overflow-hidden">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="white" className="shrink-0 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
             <path d="M8 5v14l11-7z" />
           </svg>
-          <div className="overflow-hidden flex-1">
-            <p className="text-white text-sm whitespace-nowrap animate-marquee drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-white text-sm drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
               {video.music}
             </p>
           </div>

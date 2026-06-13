@@ -13,6 +13,8 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
   const longPressTimer = useRef(null);
   const isDraggingProgress = useRef(false);
   const progressBarRef = useRef(null);
+  const suppressPlayToggle = useRef(false);
+  const isPausedActive = isActive && !isPlaying;
 
   // 재생/정지 동기화
   useEffect(() => {
@@ -38,6 +40,7 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
 
   const handleTap = useCallback(
     (e) => {
+      if (suppressPlayToggle.current) return;
       if (isDraggingProgress.current) return;
       if (e.target.closest("button") || e.target.closest("[data-no-tap]")) return;
       const now = Date.now();
@@ -56,6 +59,20 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
     },
     [togglePlay, videoState, onStateChange]
   );
+
+  const handleUnmuteClick = useCallback((e) => {
+    if (!isMuted) return;
+    suppressPlayToggle.current = true;
+    setTimeout(() => {
+      suppressPlayToggle.current = false;
+    }, 1000);
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.play().catch(() => {});
+    }
+    onToggleMute();
+  }, [isMuted, onToggleMute]);
 
   const handlePressStart = useCallback(() => {
     longPressTimer.current = setTimeout(() => {
@@ -103,7 +120,10 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
   }, [seekFromPointer]);
 
   return (
-    <div className="relative w-full h-full bg-black overflow-hidden">
+    <div
+      className="relative w-full h-full bg-black overflow-hidden"
+      onClickCapture={handleUnmuteClick}
+    >
       <video
         ref={videoRef}
         src={video.videoUrl}
@@ -141,16 +161,14 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
         </div>
       )}
 
-      {/* 음소거 토글 — 한 번 클릭하면 사라짐, 각진 네모, 크게 */}
+      {/* 화면 어디든 탭하면 사라지는 음소거 해제 안내 */}
       {isMuted && (
-        <button
-          className="absolute top-14 left-3 z-20 w-12 h-12 bg-white flex items-center justify-center shadow-md"
-          onClick={(e) => { e.stopPropagation(); onToggleMute(); }}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="#111">
+        <div className="absolute top-20 left-3 z-20 flex items-center gap-3 rounded-sm bg-white px-4 py-3 text-[#111] shadow-md pointer-events-none">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#111" className="shrink-0">
             <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
           </svg>
-        </button>
+          <span className="whitespace-nowrap text-base font-medium">탭하여 음소거 해제</span>
+        </div>
       )}
 
       {/* 더블탭 하트 */}
@@ -176,18 +194,28 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
       {/* 진행바 */}
       <div
         ref={progressBarRef}
-        className="absolute bottom-0 left-0 right-0 z-30 h-5 cursor-ew-resize touch-none flex items-end"
+        className={`absolute left-0 right-0 z-30 cursor-ew-resize touch-none flex items-center transition-[bottom,height] duration-200 ${
+          isPausedActive ? "bottom-3 h-8" : "bottom-0 h-5"
+        }`}
         onPointerDown={handleProgressPointerDown}
         onPointerMove={handleProgressPointerMove}
         onPointerUp={handleProgressPointerEnd}
         onPointerCancel={handleProgressPointerEnd}
         data-no-tap
       >
-        <div className="relative w-full h-[3px]" style={{ backgroundColor: "rgba(255,255,255,0.25)" }}>
+        <div
+          className={`relative w-full transition-[height] duration-200 ${isPausedActive ? "h-1" : "h-[3px]"}`}
+          style={{ backgroundColor: "rgba(255,255,255,0.25)" }}
+        >
           <div className="h-full transition-none" style={{ width: `${progress}%`, backgroundColor: "#FF0000" }} />
           <div
-            className="absolute -top-[4px] w-[11px] h-[11px] rounded-full"
-            style={{ left: `calc(${progress}% - 5.5px)`, backgroundColor: "#FF0000" }}
+            className={`absolute top-1/2 -translate-y-1/2 rounded-full transition-[width,height] duration-200 ${
+              isPausedActive ? "w-[14px] h-[14px]" : "w-[11px] h-[11px]"
+            }`}
+            style={{
+              left: `calc(${progress}% - ${isPausedActive ? "7px" : "5.5px"})`,
+              backgroundColor: "#FF0000",
+            }}
           />
         </div>
       </div>

@@ -67,7 +67,7 @@ export const videos = [
       verified: false,
     },
     title: "세현 이 장면 레전드인 이유 🔥 #세현 #아이돌 #직캠 #레전드",
-    music: "오리지널 사운드 - 아이돌리스트",
+    music: "세현 무대 직캠 풀버전｜레전드 순간 모음",
     likes: 58400,
     comments: 812,
     shares: 4102,
@@ -295,7 +295,7 @@ export const videos = [
       verified: false,
     },
     title: "외국인들이 이걸 진짜 좋아한다고? 🏪 #편의점 #편맛 #koreanfood #불닭볶음면",
-    music: "오리지널 사운드 - 편맛",
+    music: "외국인이 뽑은 한국 편의점 음식 TOP 10",
     likes: 31800,
     comments: 634,
     shares: 1203,
@@ -416,7 +416,7 @@ export const videos = [
     videoUrl: "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-f338d540-9e07-413b-b6d9-6588e5363d80-1_qj7JfiwI.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1mMzM4ZDU0MC05ZTA3LTQxM2ItYjZkOS02NTg4ZTUzNjNkODAtMV9xajdKZml3SS5tcDQiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxMzgyMzEyLCJleHAiOjE4MTI5MTgzMTJ9.6PieRTLrgHJlWCodD6Q3BO1YKmXJCo5HCllobeEYtpw",
     channel: { name: "감동집합소", handle: "@kamdongcollector", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=kamdongcollector", verified: false },
     title: "바쁘다는 이유로 자꾸 미뤘던 산책, 강아지는 언제나 우리만 기다리고 있었습니다 🐶 #강아지 #반려견 #감동영상 #가족",
-    music: "오리지널 사운드 - 감동집합소",
+    music: "강아지가 평생 기억하는 보호자의 행동 7가지",
     likes: 12800, comments: 100, shares: 742,
     comments_data: [
       { id: "c1", user: "monglove92", avatar: "", text: "꼬리 흔들면서 기다리는 모습이 너무 귀여운데 왜 이렇게 마음이 아프지ㅠ 오늘은 퇴근하자마자 산책부터 나가야겠다", likes: 2843, time: "4일 전", replies: [
@@ -488,7 +488,7 @@ export const videos = [
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
     channel: { name: "코딩하는 태호", handle: "@taehodev", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=taeho", verified: true },
     title: "JavaScript 이거 모르면 면접 탈락 🔥 #코딩 #개발 #자바스크립트 #취업",
-    music: "Focus Music - CodeBeats",
+    music: "신입 개발자 면접에서 가장 많이 틀리는 JavaScript 질문",
     likes: 89100, comments: 2103, shares: 5678,
     comments_data: [
       { id: "c1", user: "취준생", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=jobseeker", text: "면접에서 실제로 저 질문 받았는데 대답 못했어요 ㅠㅠ", likes: 343, time: "5일 전",
@@ -503,7 +503,7 @@ export const videos = [
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
     channel: { name: "뷰티 by 하은", handle: "@haeunbeauty", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=haeun", verified: false },
     title: "5분 완성 데일리 메이크업 ✨ #뷰티 #메이크업 #데일리룩 #꿀팁",
-    music: "Pretty Girl - BeautyVibes",
+    music: "초보도 실패 없는 데일리 메이크업 풀버전",
     likes: 45600, comments: 678, shares: 1890,
     comments_data: [
       { id: "c1", user: "뷰린이", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=beautybegin", text: "파운데이션 브랜드가 뭐예요? 완전 자연스러워요", likes: 134, time: "6일 전",
