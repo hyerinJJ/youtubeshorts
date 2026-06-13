@@ -17,9 +17,10 @@ function hashOf(str) {
   return Math.abs(h);
 }
 
-// 0: 단색  1: waifu anime  2: picsum  3: default
+// 분포: 단색(3) 풍경(2) 동물(2) 애니(1) 회색(1) — 총 9
+// 0,3,6=단색  1,4=풍경  2,5=동물  7=애니  8=회색
 function getAvatarType(username, idx) {
-  return (hashOf(username) + idx * 3) % 4;
+  return (hashOf(username) + idx * 3) % 9;
 }
 
 function DefaultIcon({ small }) {
@@ -41,7 +42,7 @@ function AvatarEl({ username, idx = 0, small = false }) {
   const [waifuUrl, setWaifuUrl] = useState(() => waifuCache.get(username) ?? null);
 
   useEffect(() => {
-    if (type !== 1) return;
+    if (type !== 7) return;
     if (waifuCache.has(username)) { setWaifuUrl(waifuCache.get(username)); return; } // eslint-disable-line
     if (waifuPending.has(username)) {
       waifuPending.get(username).then((url) => setWaifuUrl(url));
@@ -57,17 +58,28 @@ function AvatarEl({ username, idx = 0, small = false }) {
 
   const cls = small ? "w-7 h-7 rounded-full shrink-0 object-cover" : "w-9 h-9 rounded-full shrink-0 object-cover";
 
-  if (type === 0) {
+  // 단색 (0, 3, 6)
+  if (type === 0 || type === 3 || type === 6) {
     const color = SOLID_COLORS[h % SOLID_COLORS.length];
     return <div className={small ? "w-7 h-7 rounded-full shrink-0" : "w-9 h-9 rounded-full shrink-0"} style={{ backgroundColor: color }} />;
   }
-  if (type === 1) {
+  // 풍경 사진 (1, 4)
+  if (type === 1 || type === 4) {
+    return <img src={`https://picsum.photos/seed/${seed}/40/40`} alt="" className={cls} onError={(e) => { e.currentTarget.style.display = "none"; }} />;
+  }
+  // 동물 (2, 5)
+  if (type === 2 || type === 5) {
+    const animalUrl = seed % 2 === 0
+      ? `https://cataas.com/cat?width=40&height=40`
+      : `https://source.unsplash.com/40x40/?dog,cat,hamster&sig=${seed}`;
+    return <img src={animalUrl} alt="" className={cls} onError={(e) => { e.currentTarget.style.display = "none"; }} />;
+  }
+  // 애니 (7)
+  if (type === 7) {
     if (!waifuUrl) return <DefaultIcon small={small} />;
     return <img src={waifuUrl} alt="" className={cls} onError={(e) => { e.currentTarget.style.display = "none"; }} />;
   }
-  if (type === 2) {
-    return <img src={`https://picsum.photos/seed/${seed}/40/40`} alt="" className={cls} onError={(e) => { e.currentTarget.style.display = "none"; }} />;
-  }
+  // 회색 기본 (8)
   return <DefaultIcon small={small} />;
 }
 
