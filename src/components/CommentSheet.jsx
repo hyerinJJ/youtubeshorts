@@ -1,7 +1,7 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import CommentItem from "./CommentItem";
 
-export default function CommentSheet({ video, videoState, onStateChange, onClose }) {
+export default function CommentSheet({ video, videoState, onStateChange, onClose, isOpen }) {
   const [inputText, setInputText] = useState("");
   const [replyTo, setReplyTo] = useState(null);
   const inputRef = useRef(null);
@@ -46,13 +46,17 @@ export default function CommentSheet({ video, videoState, onStateChange, onClose
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={onClose}>
+    <div
+      className={`fixed inset-0 z-50 items-end justify-center ${isOpen ? "flex" : "hidden"}`}
+      onClick={onClose}
+      aria-hidden={!isOpen}
+    >
       {/* 백드롭 */}
       <div className="absolute inset-0 bg-black/40" />
 
       {/* 시트 */}
       <div
-        className="relative w-full max-w-[430px] bg-white rounded-t-2xl flex flex-col animate-slide-up overflow-hidden"
+        className={`relative w-full max-w-[430px] bg-white rounded-t-2xl flex flex-col overflow-hidden ${isOpen ? "animate-slide-up" : ""}`}
         style={{ height: "75vh" }}
         onClick={(e) => e.stopPropagation()}
       >

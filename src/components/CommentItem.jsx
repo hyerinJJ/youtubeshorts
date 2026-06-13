@@ -1,8 +1,4 @@
-import React, { useState, useEffect } from "react";
-
-// 모듈 레벨 캐시 — 같은 username은 항상 같은 waifu URL
-const waifuCache = new Map();
-const waifuPending = new Map();
+import { useState } from "react";
 
 const SOLID_COLORS = [
   "#FF0000", "#FF4500", "#FF6B35", "#FF9800", "#FFC107",
@@ -17,70 +13,21 @@ function hashOf(str) {
   return Math.abs(h);
 }
 
-// 분포: 단색(3) 풍경(2) 동물(2) 애니(1) 회색(1) — 총 9
-// 0,3,6=단색  1,4=풍경  2,5=동물  7=애니  8=회색
-function getAvatarType(username, idx) {
-  return (hashOf(username) + idx * 3) % 9;
-}
+function AvatarEl({ username, idx = 0, small = false }) {
+  const h = hashOf(username);
+  const color = SOLID_COLORS[(h + idx * 3) % SOLID_COLORS.length];
+  const initial = username.trim().charAt(0).toUpperCase();
+  const sizeClass = small ? "w-7 h-7 text-[11px]" : "w-9 h-9 text-xs";
 
-function DefaultIcon({ small }) {
-  const cls = small ? "w-7 h-7" : "w-9 h-9";
-  const sz = small ? 15 : 20;
   return (
-    <div className={`${cls} rounded-full bg-[#AAAAAA] flex items-center justify-center shrink-0`}>
-      <svg width={sz} height={sz} viewBox="0 0 24 24" fill="white">
-        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-      </svg>
+    <div
+      className={`${sizeClass} rounded-full shrink-0 flex items-center justify-center font-semibold text-white`}
+      style={{ backgroundColor: color }}
+      aria-hidden="true"
+    >
+      {initial}
     </div>
   );
-}
-
-function AvatarEl({ username, idx = 0, small = false }) {
-  const type = getAvatarType(username, idx);
-  const h = hashOf(username);
-  const seed = (h * 7 + 13) % 99991;
-  const [waifuUrl, setWaifuUrl] = useState(() => waifuCache.get(username) ?? null);
-
-  useEffect(() => {
-    if (type !== 7) return;
-    if (waifuCache.has(username)) { setWaifuUrl(waifuCache.get(username)); return; } // eslint-disable-line
-    if (waifuPending.has(username)) {
-      waifuPending.get(username).then((url) => setWaifuUrl(url));
-      return;
-    }
-    const p = fetch("https://api.waifu.pics/sfw/waifu")
-      .then((r) => r.json())
-      .then((d) => { waifuCache.set(username, d.url); return d.url; })
-      .catch(() => null);
-    waifuPending.set(username, p);
-    p.then((url) => { setWaifuUrl(url); waifuPending.delete(username); });
-  }, [username, type]);
-
-  const cls = small ? "w-7 h-7 rounded-full shrink-0 object-cover" : "w-9 h-9 rounded-full shrink-0 object-cover";
-
-  // 단색 (0, 3, 6)
-  if (type === 0 || type === 3 || type === 6) {
-    const color = SOLID_COLORS[h % SOLID_COLORS.length];
-    return <div className={small ? "w-7 h-7 rounded-full shrink-0" : "w-9 h-9 rounded-full shrink-0"} style={{ backgroundColor: color }} />;
-  }
-  // 풍경 사진 (1, 4)
-  if (type === 1 || type === 4) {
-    return <img src={`https://picsum.photos/seed/${seed}/40/40`} alt="" className={cls} onError={(e) => { e.currentTarget.style.display = "none"; }} />;
-  }
-  // 동물 (2, 5)
-  if (type === 2 || type === 5) {
-    const animalUrl = seed % 2 === 0
-      ? `https://cataas.com/cat?width=40&height=40`
-      : `https://source.unsplash.com/40x40/?dog,cat,hamster&sig=${seed}`;
-    return <img src={animalUrl} alt="" className={cls} onError={(e) => { e.currentTarget.style.display = "none"; }} />;
-  }
-  // 애니 (7)
-  if (type === 7) {
-    if (!waifuUrl) return <DefaultIcon small={small} />;
-    return <img src={waifuUrl} alt="" className={cls} onError={(e) => { e.currentTarget.style.display = "none"; }} />;
-  }
-  // 회색 기본 (8)
-  return <DefaultIcon small={small} />;
 }
 
 function formatCount(n) {

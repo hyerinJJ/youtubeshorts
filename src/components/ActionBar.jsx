@@ -1,5 +1,3 @@
-import React from "react";
-
 function formatCount(n) {
   if (n >= 10000) return (n / 10000).toFixed(1) + "만";
   if (n >= 1000) return (n / 1000).toFixed(1) + "천";
@@ -43,8 +41,11 @@ export default function ActionBar({ video, onCommentOpen, videoState, onStateCha
           width={48}
           height={48}
           alt="좋아요"
-          className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]"
-          style={{ filter: isLiked ? "brightness(0) saturate(100%) invert(27%) sepia(95%) saturate(5000%) hue-rotate(0deg) brightness(110%)" : "none" }}
+          style={{
+            filter: isLiked
+              ? "drop-shadow(0 1px 4px rgba(0,0,0,0.9)) brightness(0) saturate(100%) invert(27%) sepia(95%) saturate(5000%) hue-rotate(0deg) brightness(110%)"
+              : "drop-shadow(0 1px 4px rgba(0,0,0,0.9))",
+          }}
         />
         <span className="text-white text-xs font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
           {formatCount(likeCount)}
