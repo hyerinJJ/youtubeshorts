@@ -4,22 +4,15 @@ import React, { useState, useEffect } from "react";
 const waifuCache = new Map();
 const waifuPending = new Map();
 
-const SOLID_COLORS = [
-  "#FF0000", "#FF4500", "#FF6B35", "#FF9800", "#FFC107",
-  "#4CAF50", "#00BCD4", "#2196F3", "#3F51B5", "#9C27B0",
-  "#E91E63", "#795548", "#607D8B", "#009688", "#8BC34A",
-  "#FF5722", "#673AB7", "#03A9F4", "#F44336", "#0288D1",
-];
-
 function hashOf(str) {
   let h = 0;
   for (let i = 0; i < str.length; i++) h = str.charCodeAt(i) + ((h << 5) - h);
   return Math.abs(h);
 }
 
-// 0: avataaars  1: 단색  2: waifu anime  3: picsum  4: default
+// 0: avataaars  1: waifu anime  2: picsum  3: default
 function getAvatarType(username, idx) {
-  return (hashOf(username) + idx * 3) % 5;
+  return (hashOf(username) + idx * 3) % 4;
 }
 
 function DefaultIcon({ small }) {
@@ -41,8 +34,8 @@ function AvatarEl({ username, idx = 0, small = false }) {
   const [waifuUrl, setWaifuUrl] = useState(() => waifuCache.get(username) ?? null);
 
   useEffect(() => {
-    if (type !== 2) return;
-    if (waifuCache.has(username)) { setWaifuUrl(waifuCache.get(username)); return; }
+    if (type !== 1) return;
+    if (waifuCache.has(username)) { setWaifuUrl(waifuCache.get(username)); return; } // eslint-disable-line
     if (waifuPending.has(username)) {
       waifuPending.get(username).then((url) => setWaifuUrl(url));
       return;
@@ -61,14 +54,10 @@ function AvatarEl({ username, idx = 0, small = false }) {
     return <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`} alt="" className={cls} onError={(e) => { e.currentTarget.style.display = "none"; }} />;
   }
   if (type === 1) {
-    const color = SOLID_COLORS[h % SOLID_COLORS.length];
-    return <div className={small ? "w-7 h-7 rounded-full shrink-0" : "w-9 h-9 rounded-full shrink-0"} style={{ backgroundColor: color }} />;
-  }
-  if (type === 2) {
     if (!waifuUrl) return <DefaultIcon small={small} />;
     return <img src={waifuUrl} alt="" className={cls} onError={(e) => { e.currentTarget.style.display = "none"; }} />;
   }
-  if (type === 3) {
+  if (type === 2) {
     return <img src={`https://picsum.photos/seed/${seed}/40/40`} alt="" className={cls} onError={(e) => { e.currentTarget.style.display = "none"; }} />;
   }
   return <DefaultIcon small={small} />;
