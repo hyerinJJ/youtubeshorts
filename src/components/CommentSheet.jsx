@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import CommentItem from "./CommentItem";
 
 function spreadEarlyComments(comments) {
@@ -25,10 +25,12 @@ function spreadEarlyComments(comments) {
 export default function CommentSheet({ video, videoState, onStateChange, onClose, isOpen }) {
   const [inputText, setInputText] = useState("");
   const [replyTo, setReplyTo] = useState(null);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef(null);
   const listRef = useRef(null);
   const dragStartY = useRef(null);
-  const dragStartScroll = useRef(null);
+  const dragOffsetRef = useRef(0);
 
   const displayedComments = useMemo(
     () => [...videoState.sessionComments, ...spreadEarlyComments(video.comments_data)],
@@ -57,17 +59,43 @@ export default function CommentSheet({ video, videoState, onStateChange, onClose
   }, []);
 
   const handleDragStart = (e) => {
-    dragStartY.current = e.touches?.[0]?.clientY ?? e.clientY;
-    dragStartScroll.current = listRef.current?.scrollTop ?? 0;
+    dragStartY.current = e.clientY;
+    dragOffsetRef.current = 0;
+    setIsDragging(true);
   };
 
-  const handleDragEnd = (e) => {
+  const handleDragMove = useCallback((e) => {
     if (dragStartY.current === null) return;
-    const endY = e.changedTouches?.[0]?.clientY ?? e.clientY;
-    const delta = endY - dragStartY.current;
-    if (delta > 90 && dragStartScroll.current <= 0) onClose();
+    const nextOffset = Math.max(0, e.clientY - dragStartY.current);
+    dragOffsetRef.current = nextOffset;
+    setDragOffset(nextOffset);
+  }, []);
+
+  const handleDragEnd = useCallback(() => {
+    if (dragStartY.current === null) return;
+    const delta = dragOffsetRef.current;
     dragStartY.current = null;
-  };
+    dragOffsetRef.current = 0;
+    setIsDragging(false);
+
+    if (delta > 110) {
+      onClose();
+    }
+    setDragOffset(0);
+  }, [onClose]);
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    window.addEventListener("pointermove", handleDragMove);
+    window.addEventListener("pointerup", handleDragEnd);
+    window.addEventListener("pointercancel", handleDragEnd);
+    return () => {
+      window.removeEventListener("pointermove", handleDragMove);
+      window.removeEventListener("pointerup", handleDragEnd);
+      window.removeEventListener("pointercancel", handleDragEnd);
+    };
+  }, [handleDragEnd, handleDragMove, isDragging]);
 
   return (
     <div
@@ -82,19 +110,22 @@ export default function CommentSheet({ video, videoState, onStateChange, onClose
 
       {/* 시트 */}
       <div
-        className={`relative w-full max-w-[430px] bg-white rounded-t-2xl flex flex-col overflow-hidden ${isOpen ? "animate-slide-up" : ""}`}
-        style={{ height: "75vh" }}
+        className={`relative w-full max-w-[430px] bg-white rounded-t-2xl flex flex-col overflow-hidden ${
+          isOpen && !isDragging && dragOffset === 0 ? "animate-slide-up" : ""
+        }`}
+        style={{
+          height: "75vh",
+          transform: `translateY(${dragOffset}px)`,
+          transition: isDragging ? "none" : "transform 220ms cubic-bezier(0.32, 0.72, 0, 1)",
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* 드래그 핸들 */}
         <div
-          className="flex justify-center pt-2.5 pb-1 shrink-0 cursor-grab active:cursor-grabbing"
-          onTouchStart={handleDragStart}
-          onTouchEnd={handleDragEnd}
-          onMouseDown={handleDragStart}
-          onMouseUp={handleDragEnd}
+          className="flex justify-center pt-2.5 pb-2 shrink-0 cursor-grab active:cursor-grabbing touch-none"
+          onPointerDown={handleDragStart}
         >
-          <div className="w-9 h-1 rounded-full bg-gray-300" />
+          <div className="w-12 h-1.5 rounded-full bg-gray-300" />
         </div>
 
         {/* 헤더 */}
@@ -114,8 +145,8 @@ export default function CommentSheet({ video, videoState, onStateChange, onClose
         {/* 댓글 입력창 (상단 고정) */}
         <div className="px-4 py-3 flex items-center gap-3 shrink-0">
           {/* 기본 유튜브 스타일 아바타 */}
-          <div className="w-9 h-9 rounded-full bg-[#AAAAAA] flex items-center justify-center shrink-0">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+          <div className="w-10 h-10 rounded-full bg-[#8AB4FF] flex items-center justify-center shrink-0">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#356DDB">
               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
             </svg>
           </div>

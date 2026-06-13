@@ -358,17 +358,73 @@ export const videos = [
   },
   {
     id: "3",
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    channel: { name: "여행하는 수아", handle: "@suatravel", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=sua", verified: false },
-    title: "제주도 숨겨진 카페 TOP 5 ☕ #제주도 #카페투어 #여행 #핫플",
-    music: "Chill Lofi - TravelBeats",
-    likes: 31200, comments: 445, shares: 1203,
+    videoUrl: "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-f338d540-9e07-413b-b6d9-6588e5363d80-1_qj7JfiwI.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1mMzM4ZDU0MC05ZTA3LTQxM2ItYjZkOS02NTg4ZTUzNjNkODAtMV9xajdKZml3SS5tcDQiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxMzgyMzEyLCJleHAiOjE4MTI5MTgzMTJ9.6PieRTLrgHJlWCodD6Q3BO1YKmXJCo5HCllobeEYtpw",
+    channel: { name: "감동집합소", handle: "@kamdongcollector", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=kamdongcollector", verified: false },
+    title: "바쁘다는 이유로 자꾸 미뤘던 산책, 강아지는 언제나 우리만 기다리고 있었습니다 🐶 #강아지 #반려견 #감동영상 #가족",
+    music: "오리지널 사운드 - 감동집합소",
+    likes: 67400, comments: 1387, shares: 4821,
     comments_data: [
-      { id: "c1", user: "제주러버", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=jejulover", text: "3번 카페 저도 다녀왔어요! 뷰가 정말 최고예요", likes: 98, time: "4일 전",
-        replies: [{ id: "r1", user: "여행하는 수아", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sua", text: "맞아요! 저도 거기서 한 시간 있었어요 ㅎㅎ", likes: 23, time: "4일 전" }],
-      },
-      { id: "c2", user: "여행계획러", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=planner", text: "다음달 제주 여행인데 저장해뒀어요!", likes: 201, time: "2일 전", replies: [] },
-      { id: "c3", user: "카페그램", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=cafegram", text: "위치 공유해주실 수 있어요? 찾기가 힘들어서요", likes: 77, time: "1일 전", replies: [] },
+      { id: "c1", user: "monglove92", avatar: "", text: "꼬리 흔들면서 기다리는 모습이 너무 귀여운데 왜 이렇게 마음이 아프지ㅠ 오늘은 퇴근하자마자 산책부터 나가야겠다", likes: 2843, time: "4일 전", replies: [
+        { id: "r1", user: "happy_dogday", avatar: "", text: "저도 이 댓글 보고 야근 끝나고 짧게라도 다녀왔어요 표정이 바로 밝아지더라고요", likes: 423, time: "4일 전" },
+      ] },
+      { id: "c2", user: "officeworker_k", avatar: "", text: "아침 일찍 나가서 밤늦게 들어오니까 밥이랑 물만 챙겨주고 잘 돌봤다고 생각했는데 이 영상 보니 너무 미안하다", likes: 1987, time: "4일 전", replies: [
+        { id: "r1", user: "dogmom_17", avatar: "", text: "먹을 것보다 같이 있는 시간을 더 기다렸던 것 같아요 저도 많이 반성 중이에요", likes: 311, time: "3일 전" },
+      ] },
+      { id: "c3", user: "coco_is_family", avatar: "", text: "강아지는 하루 종일 우리가 돌아오는 순간만 기다린다는 말이 제일 슬픔... 우리는 세상에 볼 게 많지만 아이들 세상엔 우리가 전부잖아", likes: 4120, time: "4일 전", replies: [] },
+      { id: "c4", user: "minji_daily", avatar: "", text: "너무 귀여워서 웃다가 마지막에 울었어요 저 조그만 발로 현관 앞에서 기다렸을 생각하니 마음이 무너짐", likes: 1456, time: "3일 전", replies: [] },
+      { id: "c5", user: "latewalk", avatar: "", text: "취업 준비할 때 정신없다는 이유로 산책을 계속 미뤘는데 어느 날 갑자기 아이가 아파졌어요 그때 같이 못 걸었던 시간이 아직도 후회돼요", likes: 2678, time: "3일 전", replies: [
+        { id: "r1", user: "warmhug_u", avatar: "", text: "그래도 함께했던 모든 순간에 사랑받았다는 건 분명히 알았을 거예요 너무 자책하지 마세요", likes: 689, time: "3일 전" },
+      ] },
+      { id: "c6", user: "bbo_family", avatar: "", text: "우리 뽀도 제가 가방만 들면 출근하는 줄 알고 표정이 시무룩해져요ㅠ 주말에는 무조건 같이 있어줘야겠음", likes: 734, time: "3일 전", replies: [] },
+      { id: "c7", user: "rainbow_bori", avatar: "", text: "바쁘다는 핑계로 잘 못 챙겨줬는데 어느 날 갑자기 보리가 무지개다리를 건넜어요 마지막 산책이 언제였는지도 선명하지 않아서 몇 년이 지나도 미안합니다", likes: 5912, time: "3일 전", replies: [
+        { id: "r1", user: "remember_bori", avatar: "", text: "보리는 미안했던 날보다 사랑받았던 날을 훨씬 많이 기억하고 있을 거예요 그곳에서는 매일 신나게 뛰고 있길", likes: 1204, time: "2일 전" },
+        { id: "r2", user: "skybridge", avatar: "", text: "이 댓글 읽고 같이 울었어요 저도 같은 후회가 있어서 너무 이해됩니다", likes: 478, time: "2일 전" },
+      ] },
+      { id: "c8", user: "jellybean_00", avatar: "", text: "강아지 눈이 어떻게 저렇게 맑지 진짜 너무너무 귀엽다ㅠ 사랑만 주고 싶은 얼굴", likes: 923, time: "3일 전", replies: [] },
+      { id: "c9", user: "dad_and_dog", avatar: "", text: "아버지가 매일 강아지 산책시키는 걸 귀찮아하시는 줄 알았는데 본인이 아픈 날에도 나가시더라고요 가족을 챙기는 일이었던 거였음", likes: 1834, time: "2일 전", replies: [] },
+      { id: "c10", user: "nightshift_nurse", avatar: "", text: "교대근무 때문에 생활이 엉망이라 아이를 제대로 못 챙기는 날이 많아요 퇴근하면 피곤해도 10분은 온전히 안아줘야겠어요", likes: 1145, time: "2일 전", replies: [
+        { id: "r1", user: "nurse_puppy", avatar: "", text: "같은 교대근무자라 공감해요 짧아도 눈 맞추고 놀아주는 시간이 정말 소중하더라고요", likes: 205, time: "2일 전" },
+      ] },
+      { id: "c11", user: "cookie_2013", avatar: "", text: "우리 쿠키 13살인데 예전처럼 오래 못 걸어요 천천히 냄새 맡는 시간이라도 충분히 기다려줘야겠네요", likes: 2201, time: "2일 전", replies: [] },
+      { id: "c12", user: "first_pet", avatar: "", text: "처음 키울 땐 좋은 사료랑 장난감만 사주면 되는 줄 알았어요 결국 제일 좋아한 건 제가 바닥에 앉아서 같이 놀아주는 거였음", likes: 1578, time: "2일 전", replies: [] },
+      { id: "c13", user: "miss_you_toto", avatar: "", text: "토토 보내고 나서 빈집에 들어갈 때마다 현관에서 들리던 발소리가 생각나요 있을 때 한 번 더 안아줄걸", likes: 3389, time: "2일 전", replies: [
+        { id: "r1", user: "little_star", avatar: "", text: "토토는 매일 현관까지 달려갈 만큼 행복했을 거예요 좋은 기억으로 오래 함께해 주세요", likes: 544, time: "1일 전" },
+      ] },
+      { id: "c14", user: "gomgom_walk", avatar: "", text: "비 온다고 춥다고 자꾸 산책 미뤘는데 얘한테는 그 하루 산책이 제일 큰 행사였겠구나", likes: 876, time: "2일 전", replies: [] },
+      { id: "c15", user: "puppy_smile", avatar: "", text: "저 얼굴로 쳐다보면 아무것도 못 하겠어ㅠ 너무 귀엽고 순하고 사랑스럽다", likes: 412, time: "1일 전", replies: [] },
+      { id: "c16", user: "working_mom_choi", avatar: "", text: "아이 키우고 일하느라 반려견은 늘 마지막 순서가 된 것 같아 미안해요 사실 첫째 아이나 다름없었는데", likes: 1765, time: "1일 전", replies: [
+        { id: "r1", user: "two_babies_home", avatar: "", text: "저도 같은 상황이에요 아기랑 강아지 같이 짧게 산책 나가니 모두 좋아하더라고요", likes: 238, time: "1일 전" },
+      ] },
+      { id: "c17", user: "seoul_dogpark", avatar: "", text: "휴대폰 보는 30분은 금방 쓰면서 산책 30분은 왜 그렇게 길게 느껴졌을까 반성합니다", likes: 2890, time: "1일 전", replies: [] },
+      { id: "c18", user: "oldfriend_kkami", avatar: "", text: "까미가 아플 때 회사 일이 바쁘다고 병원도 부모님께 부탁했는데 마지막 날 곁에 못 있었던 게 평생 마음에 남아요", likes: 2467, time: "1일 전", replies: [
+        { id: "r1", user: "dont_blame_you", avatar: "", text: "까미는 마지막 하루가 아니라 함께 산 모든 날의 사랑을 기억했을 겁니다", likes: 701, time: "23시간 전" },
+      ] },
+      { id: "c19", user: "walk_is_date", avatar: "", text: "산책을 의무라고 생각했는데 강아지랑 하는 데이트라고 생각하니 마음이 달라졌어요", likes: 1344, time: "23시간 전", replies: [] },
+      { id: "c20", user: "tiny_paws", avatar: "", text: "쪼그만 발로 졸졸 따라오는 거 너무 귀여움ㅠ 저 존재가 사람을 이렇게까지 사랑해 준다는 게 신기해", likes: 967, time: "22시간 전", replies: [] },
+      { id: "c21", user: "student_and_maru", avatar: "", text: "시험기간마다 마루가 놀아달라고 하면 밀어냈는데 오늘 시험 끝나자마자 공원 데려가려고요 기다려줘서 고마워", likes: 624, time: "21시간 전", replies: [] },
+      { id: "c22", user: "grandma_puppy", avatar: "", text: "할머니가 돌아가시고 강아지가 며칠 동안 할머니 방 앞에서 기다렸어요 그 모습이 아직도 너무 슬퍼요", likes: 1876, time: "20시간 전", replies: [
+        { id: "r1", user: "soft_cloud", avatar: "", text: "강아지도 가족을 잃은 걸 알고 기다렸던 거겠죠 읽기만 해도 눈물이 나네요", likes: 329, time: "19시간 전" },
+      ] },
+      { id: "c23", user: "home_early_today", avatar: "", text: "이 영상 보고 약속 취소하고 집에 일찍 갑니다 우리 애랑 놀아주는 게 오늘 제일 중요한 약속임", likes: 3104, time: "18시간 전", replies: [] },
+      { id: "c24", user: "dubu_is_cute", avatar: "", text: "두부도 저렇게 고개 갸웃하는데 진짜 심장 아프게 귀여워요 강아지들은 본인이 귀여운 걸 알까", likes: 553, time: "17시간 전", replies: [] },
+      { id: "c25", user: "sorry_and_love", avatar: "", text: "미안하다고 말하면 꼬리부터 흔드는 게 더 미안함... 서운했던 것도 바로 잊고 또 좋아해 주잖아요", likes: 2721, time: "16시간 전", replies: [] },
+      { id: "c26", user: "rainy_day_memory", avatar: "", text: "무지개다리 건넌 우리 별이도 현관 소리만 나면 뛰어나왔는데 영상 보다가 한참 울었네요 보고 싶다", likes: 1622, time: "15시간 전", replies: [
+        { id: "r1", user: "star_in_sky", avatar: "", text: "별이라는 이름처럼 지금도 가장 밝은 곳에서 기다리고 있을 거예요", likes: 287, time: "14시간 전" },
+      ] },
+      { id: "c27", user: "remote_worker", avatar: "", text: "재택근무하면서 같이 있는 시간이 많아졌는데 옆에 있다는 이유로 오히려 제대로 놀아주진 않았네요 오늘은 컴퓨터 끄고 같이 나가야지", likes: 841, time: "13시간 전", replies: [] },
+      { id: "c28", user: "one_more_hug", avatar: "", text: "강아지 키우는 분들 지나가면서 한 번 더 쓰다듬어 주세요 그 한 번이 나중에는 제일 그리워집니다", likes: 3560, time: "12시간 전", replies: [] },
+      { id: "c29", user: "sunday_with_song", avatar: "", text: "우리 송이는 산책이라는 말만 해도 빙글빙글 돌아요 피곤하다고 미뤘던 제가 너무했네요", likes: 478, time: "11시간 전", replies: [] },
+      { id: "c30", user: "heartcollector", avatar: "", text: "귀여운 영상인 줄 알고 들어왔다가 눈물만 한 바가지 흘리고 갑니다ㅠ", likes: 1210, time: "10시간 전", replies: [] },
+      { id: "c31", user: "bye_my_friend", avatar: "", text: "출장이 잦아 늘 가족에게 맡겼고 돌아오면 다음에 놀자고 했어요 그런데 그 다음이 오기 전에 아이가 떠났습니다 시간이 많을 줄 알았던 게 가장 큰 착각이었어요", likes: 4328, time: "9시간 전", replies: [
+        { id: "r1", user: "warm_memory", avatar: "", text: "기다렸던 시간까지도 아이에게는 사랑하는 가족을 기다리는 행복이었을 거예요", likes: 604, time: "8시간 전" },
+      ] },
+      { id: "c32", user: "family_means_all", avatar: "", text: "반려동물은 취미가 아니라 가족이라는 말이 정말 맞아요 바쁠 때도 가족은 뒤로 미루면 안 되는 건데", likes: 925, time: "7시간 전", replies: [] },
+      { id: "c33", user: "goodboy_goodgirl", avatar: "", text: "세상 모든 강아지들이 아프지 말고 사랑만 듬뿍 받았으면 좋겠다", likes: 2178, time: "6시간 전", replies: [] },
+      { id: "c34", user: "after_work_walk", avatar: "", text: "야근하고 집 오면 쓰러져 자기 바빴는데 오늘부터 15분이라도 꼭 같이 걷기로 약속함", likes: 389, time: "5시간 전", replies: [] },
+      { id: "c35", user: "miss_my_mango", avatar: "", text: "망고야 그때 내가 조금만 덜 바빴다면 더 많이 안아줬을 텐데 미안하고 사랑해 무지개다리에서 꼭 다시 만나자", likes: 2087, time: "4시간 전", replies: [
+        { id: "r1", user: "meet_again", avatar: "", text: "망고는 분명 제일 먼저 달려와서 반겨줄 거예요", likes: 344, time: "3시간 전" },
+      ] },
+      { id: "c36", user: "today_is_precious", avatar: "", text: "나중에 잘해줘야지가 아니라 오늘 잘해줘야 한다는 걸 알려주는 영상이네요", likes: 1489, time: "2시간 전", replies: [] },
     ],
   },
   {

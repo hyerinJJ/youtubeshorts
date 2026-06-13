@@ -7,6 +7,18 @@ function hashOf(str) {
 }
 
 function AvatarEl({ username, small = false }) {
+  if (username === "나") {
+    const iconSize = small ? 17 : 22;
+    const sizeClass = small ? "w-7 h-7" : "w-9 h-9";
+    return (
+      <div className={`${sizeClass} rounded-full bg-[#8AB4FF] flex items-center justify-center shrink-0`}>
+        <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="#356DDB" aria-hidden="true">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+        </svg>
+      </div>
+    );
+  }
+
   const h = hashOf(username);
   const type = h % 12;
   const initial = username.trim().charAt(0).toUpperCase();
@@ -123,8 +135,8 @@ function ReplyItem({ reply }) {
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-[13px] font-semibold text-black truncate">@{reply.user}</span>
-            <span className="text-[12px] text-gray-500 shrink-0">{reply.time}</span>
+            <span className="text-[14px] font-semibold text-black truncate">@{reply.user}</span>
+            <span className="text-[13px] text-gray-500 shrink-0">{reply.time}</span>
           </div>
           <button className="shrink-0 p-0.5">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="#606060">
@@ -132,7 +144,7 @@ function ReplyItem({ reply }) {
             </svg>
           </button>
         </div>
-        <p className="text-[13px] text-gray-800 leading-snug mt-0.5">{reply.text}</p>
+        <p className="text-[14px] text-gray-800 leading-snug mt-0.5">{reply.text}</p>
         <div className="flex items-center gap-3 mt-1.5">
           <button onClick={() => { setLiked(!liked); setLikeCount((c) => liked ? c - 1 : c + 1); }} className="flex items-center gap-1">
             <ThumbUpIcon filled={liked} size={14} />
@@ -158,8 +170,8 @@ function CommentItem({ comment, onReply }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-1">
             <div className="flex items-center gap-2 min-w-0">
-              <span className="text-[13px] font-semibold text-black truncate">@{comment.user}</span>
-              <span className="text-[12px] text-gray-500 shrink-0">{comment.time}</span>
+              <span className="text-[14px] font-semibold text-black truncate">@{comment.user}</span>
+              <span className="text-[13px] text-gray-500 shrink-0">{comment.time}</span>
             </div>
             <button className="shrink-0 p-0.5">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="#606060">
@@ -168,7 +180,7 @@ function CommentItem({ comment, onReply }) {
             </button>
           </div>
 
-          <p className="text-[13px] text-gray-800 leading-snug mt-0.5">{comment.text}</p>
+          <p className="text-[15px] text-gray-800 leading-snug mt-0.5">{comment.text}</p>
 
           <div className="flex items-center gap-4 mt-2">
             <button onClick={() => { setLiked(!liked); setLikeCount((c) => liked ? c - 1 : c + 1); }} className="flex items-center gap-1.5">
