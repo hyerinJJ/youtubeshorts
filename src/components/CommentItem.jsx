@@ -108,16 +108,20 @@ function formatCount(n) {
 const GRAY_ICON_FILTER = "brightness(0) saturate(100%) invert(39%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%)";
 const BLUE_ICON_FILTER = "brightness(0) saturate(100%) invert(29%) sepia(95%) saturate(1748%) hue-rotate(203deg) brightness(88%) contrast(101%)";
 
-function CommentActionIcon({ src, alt, size = 20, active = false }) {
+function CommentActionIcon({ src, alt, active = false }) {
+  const imageSize = src === "/comments.png" ? 30 : 40;
+
   return (
-    <img
-      src={src}
-      alt={alt}
-      width={size}
-      height={size}
-      className="object-contain"
-      style={{ filter: active ? BLUE_ICON_FILTER : GRAY_ICON_FILTER }}
-    />
+    <span className="w-6 h-6 overflow-hidden flex items-center justify-center shrink-0">
+      <img
+        src={src}
+        alt={alt}
+        width={imageSize}
+        height={imageSize}
+        className="max-w-none shrink-0"
+        style={{ filter: active ? BLUE_ICON_FILTER : GRAY_ICON_FILTER }}
+      />
+    </span>
   );
 }
 
