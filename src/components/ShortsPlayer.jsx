@@ -68,30 +68,39 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
     if (videoRef.current) videoRef.current.playbackRate = 1;
   }, []);
 
-  const handleProgressClick = useCallback(
-    (e) => {
-      e.stopPropagation();
+  const seekFromPointer = useCallback(
+    (clientX) => {
       const bar = progressBarRef.current;
       if (!bar) return;
       const rect = bar.getBoundingClientRect();
-      const pct = ((e.clientX - rect.left) / rect.width) * 100;
-      seek(Math.max(0, Math.min(100, pct)));
-    },
-    [seek]
-  );
-
-  const handleProgressDragEnd = useCallback(
-    (e) => {
-      isDraggingProgress.current = false;
-      const bar = progressBarRef.current;
-      if (!bar) return;
-      const rect = bar.getBoundingClientRect();
-      const clientX = e.changedTouches?.[0]?.clientX ?? e.clientX;
       const pct = ((clientX - rect.left) / rect.width) * 100;
       seek(Math.max(0, Math.min(100, pct)));
     },
     [seek]
   );
+
+  const handleProgressPointerDown = useCallback((e) => {
+    e.stopPropagation();
+    isDraggingProgress.current = true;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    seekFromPointer(e.clientX);
+  }, [seekFromPointer]);
+
+  const handleProgressPointerMove = useCallback((e) => {
+    if (!isDraggingProgress.current) return;
+    e.stopPropagation();
+    seekFromPointer(e.clientX);
+  }, [seekFromPointer]);
+
+  const handleProgressPointerEnd = useCallback((e) => {
+    if (!isDraggingProgress.current) return;
+    e.stopPropagation();
+    seekFromPointer(e.clientX);
+    isDraggingProgress.current = false;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+  }, [seekFromPointer]);
 
   return (
     <div className="relative w-full h-full bg-black overflow-hidden">
@@ -167,18 +176,20 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
       {/* 진행바 */}
       <div
         ref={progressBarRef}
-        className="absolute bottom-0 left-0 right-0 z-30 cursor-pointer"
-        style={{ height: "3px", backgroundColor: "rgba(255,255,255,0.25)" }}
-        onClick={handleProgressClick}
-        onTouchStart={() => { isDraggingProgress.current = true; }}
-        onTouchEnd={handleProgressDragEnd}
+        className="absolute bottom-0 left-0 right-0 z-30 h-5 cursor-ew-resize touch-none flex items-end"
+        onPointerDown={handleProgressPointerDown}
+        onPointerMove={handleProgressPointerMove}
+        onPointerUp={handleProgressPointerEnd}
+        onPointerCancel={handleProgressPointerEnd}
         data-no-tap
       >
-        <div className="h-full transition-none" style={{ width: `${progress}%`, backgroundColor: "#FF0000" }} />
-        <div
-          className="absolute -top-[4px] w-[11px] h-[11px] rounded-full"
-          style={{ left: `calc(${progress}% - 5.5px)`, backgroundColor: "#FF0000" }}
-        />
+        <div className="relative w-full h-[3px]" style={{ backgroundColor: "rgba(255,255,255,0.25)" }}>
+          <div className="h-full transition-none" style={{ width: `${progress}%`, backgroundColor: "#FF0000" }} />
+          <div
+            className="absolute -top-[4px] w-[11px] h-[11px] rounded-full"
+            style={{ left: `calc(${progress}% - 5.5px)`, backgroundColor: "#FF0000" }}
+          />
+        </div>
       </div>
 
       <CommentSheet

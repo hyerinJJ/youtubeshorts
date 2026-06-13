@@ -1,5 +1,26 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 import CommentItem from "./CommentItem";
+
+function spreadEarlyComments(comments) {
+  const earlyComments = [];
+  const regularComments = [];
+
+  comments.forEach((comment) => {
+    if (/^\s*\d+\s*빠/.test(comment.text)) {
+      earlyComments.push(comment);
+    } else {
+      regularComments.push(comment);
+    }
+  });
+
+  earlyComments.forEach((comment, index) => {
+    const ratio = Math.min(0.9, 0.62 + index * 0.12);
+    const targetIndex = Math.round(regularComments.length * ratio);
+    regularComments.splice(targetIndex, 0, comment);
+  });
+
+  return regularComments;
+}
 
 export default function CommentSheet({ video, videoState, onStateChange, onClose, isOpen }) {
   const [inputText, setInputText] = useState("");
@@ -9,7 +30,10 @@ export default function CommentSheet({ video, videoState, onStateChange, onClose
   const dragStartY = useRef(null);
   const dragStartScroll = useRef(null);
 
-  const allComments = [...videoState.sessionComments, ...video.comments_data];
+  const displayedComments = useMemo(
+    () => [...videoState.sessionComments, ...spreadEarlyComments(video.comments_data)],
+    [video.comments_data, videoState.sessionComments]
+  );
   const totalCount = video.comments + videoState.sessionComments.length;
 
   const handleSubmit = () => {
@@ -127,7 +151,7 @@ export default function CommentSheet({ video, videoState, onStateChange, onClose
 
         {/* 댓글 목록 */}
         <div ref={listRef} className="flex-1 overflow-y-auto overscroll-contain bg-white">
-          {allComments.map((comment) => (
+          {displayedComments.map((comment) => (
             <CommentItem key={comment.id} comment={comment} onReply={handleReply} />
           ))}
           <div className="h-6" />
