@@ -1,6 +1,61 @@
 const V1 = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-b2b8d8f6-3f26-4eda-8682-e331c9311df7_lSqMAn5S.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1iMmI4ZDhmNi0zZjI2LTRlZGEtODY4Mi1lMzMxYzkzMTFkZjdfbFNxTUFuNVMubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTM3MTkxMiwiZXhwIjoxODEyOTA3OTEyfQ.OW-Vo_b9e_PG-JQm7NVpL9xQiPK-K7w21JusgCRMXQI";
 const V2 = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-20fe131f-5399-4e09-a404-a70f8d3ed0c0_PBf2TKN8.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS0yMGZlMTMxZi01Mzk5LTRlMDktYTQwNC1hNzBmOGQzZWQwYzBfUEJmMlRLTjgubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTM3MTc1NCwiZXhwIjoxODEyOTA3NzU0fQ.rIkhDhz_biFNK2PCABjwyCnnZjENpVdRSSUZDlKtgoc";
 
+const DOG_SHORT_COMMENTS = [
+  "ㅠㅠㅠㅠㅠ", "눈물 난다 진짜", "너무 귀여워ㅠ", "아가야 행복해야 해", "오늘 꼭 안아줘야지", "마음이 너무 아프다", "꼬리 흔드는 거 봐ㅠ", "우리 애 보고 싶다",
+  "이건 못 참지ㅠㅠ", "강아지는 천사야", "퇴근하고 바로 산책 간다", "왜 나를 울려요ㅠ", "표정이 너무 순해", "미안해 우리 아가", "짧게라도 놀아줘야겠다", "눈빛에서 사랑이 보여",
+  "보고 또 우는 중", "아 진짜 슬프다", "너무 착해서 더 눈물남", "강아지 시간은 빠르대요", "오늘이 제일 소중하다", "저 작은 발 너무 귀여워", "현관에서 기다리지 마ㅠ", "우리 집도 똑같아요",
+  "ㅠㅠㅠㅠ 마음 찢어짐", "한 번만 더 안아볼걸", "산책 가자는 말 해줘야지", "강아지 키우면 공감됨", "사랑만 받아 아가야", "끝까지 못 보겠어요", "지금 옆에서 자고 있는데 울컥", "나중으로 미루지 말아야지",
+  "너무 귀엽고 너무 슬퍼", "저 꼬리가 반칙임", "우리 댕댕이 최고", "퇴근길에 간식 사간다", "오늘은 폰 내려놓고 놀아줄게", "기다렸을 생각에 미안하다", "건강하게 오래 살아줘", "강아지는 우리만 보잖아",
+  "댓글 보다가 또 울음", "무지개다리 얘기 너무 슬퍼", "아가들은 다 행복했으면", "저 눈을 어떻게 외면해ㅠ", "짧은 산책도 좋아하더라", "바쁘다는 말이 핑계였네", "오늘부터 더 잘할게", "강아지 냄새 맡고 싶다",
+  "세상에서 제일 순한 눈", "우리 애도 현관에서 기다려요", "귀여워서 심장 아파", "진짜 가족 맞아요", "ㅠㅠ 보고 싶어", "산책 두 번 간다 오늘", "이 영상 저장해둬야지", "괜히 미안해서 쓰다듬는 중",
+  "시간아 천천히 가줘", "오래오래 곁에 있어줘", "강아지한텐 우리가 전부", "울면서 좋아요 누름", "사랑해 우리 강아지", "지금 만나러 갑니다", "다시는 미루지 않을게", "모든 강아지 행복하자",
+];
+
+const DOG_COMMENT_LIKES = [0, 3, 11, 27, 54, 89, 132, 207, 418, 763, 1240, 6, 42, 315, 18, 1567];
+const DOG_REPLY_TEXTS = [
+  "저도 같은 마음이에요ㅠㅠ",
+  "오늘은 꼭 같이 산책해요",
+  "아이도 그 마음을 다 알 거예요",
+  "이 댓글 보고 또 울었네요",
+  "우리 모두 있을 때 더 잘해줘요",
+  "짧은 시간이라도 정말 좋아하더라고요",
+];
+
+const DOG_EXTRA_COMMENTS = DOG_SHORT_COMMENTS.map((text, index) => {
+  const replies = index % 3 === 0
+    ? [{
+        id: `r${index + 1}_1`,
+        user: `puppy_reply_${index + 1}`,
+        avatar: "",
+        text: DOG_REPLY_TEXTS[index % DOG_REPLY_TEXTS.length],
+        likes: DOG_COMMENT_LIKES[(index + 5) % DOG_COMMENT_LIKES.length],
+        time: `${Math.max(1, 9 - Math.floor(index / 8))}시간 전`,
+      }]
+    : [];
+
+  if (index % 11 === 0) {
+    replies.push({
+      id: `r${index + 1}_2`,
+      user: `warm_reply_${index + 1}`,
+      avatar: "",
+      text: "진짜 공감합니다 마음이 먹먹해요ㅠ",
+      likes: DOG_COMMENT_LIKES[(index + 9) % DOG_COMMENT_LIKES.length],
+      time: `${Math.max(1, 8 - Math.floor(index / 9))}시간 전`,
+    });
+  }
+
+  return {
+    id: `c${index + 37}`,
+    user: `doglover_${String(index + 37).padStart(3, "0")}`,
+    avatar: "",
+    text,
+    likes: DOG_COMMENT_LIKES[index % DOG_COMMENT_LIKES.length],
+    time: `${Math.max(1, 12 - Math.floor(index / 6))}시간 전`,
+    replies,
+  };
+});
+
 export const videos = [
   {
     id: "1",
@@ -362,7 +417,7 @@ export const videos = [
     channel: { name: "감동집합소", handle: "@kamdongcollector", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=kamdongcollector", verified: false },
     title: "바쁘다는 이유로 자꾸 미뤘던 산책, 강아지는 언제나 우리만 기다리고 있었습니다 🐶 #강아지 #반려견 #감동영상 #가족",
     music: "오리지널 사운드 - 감동집합소",
-    likes: 67400, comments: 1387, shares: 4821,
+    likes: 12800, comments: 100, shares: 742,
     comments_data: [
       { id: "c1", user: "monglove92", avatar: "", text: "꼬리 흔들면서 기다리는 모습이 너무 귀여운데 왜 이렇게 마음이 아프지ㅠ 오늘은 퇴근하자마자 산책부터 나가야겠다", likes: 2843, time: "4일 전", replies: [
         { id: "r1", user: "happy_dogday", avatar: "", text: "저도 이 댓글 보고 야근 끝나고 짧게라도 다녀왔어요 표정이 바로 밝아지더라고요", likes: 423, time: "4일 전" },
@@ -425,6 +480,7 @@ export const videos = [
         { id: "r1", user: "meet_again", avatar: "", text: "망고는 분명 제일 먼저 달려와서 반겨줄 거예요", likes: 344, time: "3시간 전" },
       ] },
       { id: "c36", user: "today_is_precious", avatar: "", text: "나중에 잘해줘야지가 아니라 오늘 잘해줘야 한다는 걸 알려주는 영상이네요", likes: 1489, time: "2시간 전", replies: [] },
+      ...DOG_EXTRA_COMMENTS,
     ],
   },
   {

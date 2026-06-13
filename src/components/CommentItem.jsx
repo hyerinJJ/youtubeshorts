@@ -105,25 +105,21 @@ function formatCount(n) {
   return String(n);
 }
 
-const ThumbUpIcon = ({ filled, size = 16 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={filled ? "#065FD4" : "#606060"} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z" />
-    <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
-  </svg>
-);
+const GRAY_ICON_FILTER = "brightness(0) saturate(100%) invert(39%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%)";
+const BLUE_ICON_FILTER = "brightness(0) saturate(100%) invert(29%) sepia(95%) saturate(1748%) hue-rotate(203deg) brightness(88%) contrast(101%)";
 
-const ThumbDownIcon = ({ size = 16 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#606060" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3z" />
-    <path d="M17 2h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" />
-  </svg>
-);
-
-const ReplyIcon = ({ size = 16 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#606060" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-  </svg>
-);
+function CommentActionIcon({ src, alt, size = 20, active = false }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      width={size}
+      height={size}
+      className="object-contain"
+      style={{ filter: active ? BLUE_ICON_FILTER : GRAY_ICON_FILTER }}
+    />
+  );
+}
 
 function ReplyItem({ reply }) {
   const [liked, setLiked] = useState(false);
@@ -147,11 +143,11 @@ function ReplyItem({ reply }) {
         <p className="text-[14px] text-gray-800 leading-snug mt-0.5">{reply.text}</p>
         <div className="flex items-center gap-3 mt-1.5">
           <button onClick={() => { setLiked(!liked); setLikeCount((c) => liked ? c - 1 : c + 1); }} className="flex items-center gap-1">
-            <ThumbUpIcon filled={liked} size={14} />
+            <CommentActionIcon src="/likes.png" alt="좋아요" active={liked} />
             <span className="text-[12px] text-gray-500">{formatCount(likeCount)}</span>
           </button>
-          <button><ThumbDownIcon size={14} /></button>
-          <button className="text-[12px] text-gray-500 font-medium">답글</button>
+          <button><CommentActionIcon src="/dislikes.png" alt="싫어요" /></button>
+          <button><CommentActionIcon src="/comments.png" alt="답글" /></button>
         </div>
       </div>
     </div>
@@ -180,15 +176,17 @@ function CommentItem({ comment, onReply }) {
             </button>
           </div>
 
-          <p className="text-[15px] text-gray-800 leading-snug mt-0.5">{comment.text}</p>
+          <p className="text-[14px] text-gray-800 leading-snug mt-0.5">{comment.text}</p>
 
           <div className="flex items-center gap-4 mt-2">
             <button onClick={() => { setLiked(!liked); setLikeCount((c) => liked ? c - 1 : c + 1); }} className="flex items-center gap-1.5">
-              <ThumbUpIcon filled={liked} />
+              <CommentActionIcon src="/likes.png" alt="좋아요" active={liked} />
               <span className="text-[12px] text-gray-500">{formatCount(likeCount)}</span>
             </button>
-            <button><ThumbDownIcon /></button>
-            <button onClick={() => onReply?.(comment.user)}><ReplyIcon /></button>
+            <button><CommentActionIcon src="/dislikes.png" alt="싫어요" /></button>
+            <button onClick={() => onReply?.(comment.user)}>
+              <CommentActionIcon src="/comments.png" alt="답글" />
+            </button>
           </div>
 
           {comment.replies?.length > 0 && (
