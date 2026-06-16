@@ -4,7 +4,19 @@ import ActionBar from "./ActionBar";
 import VideoInfo from "./VideoInfo";
 import CommentSheet from "./CommentSheet";
 
-export default function ShortsPlayer({ video, isActive, videoState, onStateChange, isMuted, onToggleMute }) {
+export default function ShortsPlayer({
+  video,
+  isActive,
+  videoState,
+  onStateChange,
+  isMuted,
+  onToggleMute,
+  endingActive,
+  shakingNumbers,
+  useAiComments,
+  commentListRef,
+  onRegisterCommentControl,
+}) {
   const videoRef = useRef(null);
   const { isPlaying, progress, showPlayIcon, togglePlay, seek } = useVideoPlayer(videoRef);
   const [showComment, setShowComment] = useState(false);
@@ -16,7 +28,14 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
   const suppressPlayToggle = useRef(false);
   const isPausedActive = isActive && !isPlaying;
 
-  // 재생/정지 동기화
+  // Register open/close controls so ending sequence can trigger them
+  useEffect(() => {
+    onRegisterCommentControl?.({
+      open: () => setShowComment(true),
+      close: () => setShowComment(false),
+    });
+  }, [onRegisterCommentControl]);
+
   useEffect(() => {
     if (!videoRef.current) return;
     if (isActive) {
@@ -27,7 +46,6 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
     }
   }, [isActive]);
 
-  // 전역 뮤트 동기화
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = isMuted;
@@ -40,6 +58,7 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
 
   const handleTap = useCallback(
     (e) => {
+      if (endingActive) return;
       if (suppressPlayToggle.current) return;
       if (isDraggingProgress.current) return;
       if (e.target.closest("button") || e.target.closest("[data-no-tap]")) return;
@@ -57,28 +76,28 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
       }
       lastTapTime.current = now;
     },
-    [togglePlay, videoState, onStateChange]
+    [togglePlay, videoState, onStateChange, endingActive]
   );
 
   const handleUnmuteClick = useCallback((e) => {
+    if (endingActive) return;
     if (!isMuted) return;
     suppressPlayToggle.current = true;
-    setTimeout(() => {
-      suppressPlayToggle.current = false;
-    }, 1000);
+    setTimeout(() => { suppressPlayToggle.current = false; }, 1000);
     e.stopPropagation();
     if (videoRef.current) {
       videoRef.current.muted = false;
       videoRef.current.play().catch(() => {});
     }
     onToggleMute();
-  }, [isMuted, onToggleMute]);
+  }, [isMuted, onToggleMute, endingActive]);
 
   const handlePressStart = useCallback(() => {
+    if (endingActive) return;
     longPressTimer.current = setTimeout(() => {
       if (videoRef.current) videoRef.current.playbackRate = 2;
     }, 500);
-  }, []);
+  }, [endingActive]);
 
   const handlePressEnd = useCallback(() => {
     clearTimeout(longPressTimer.current);
@@ -145,7 +164,7 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
       />
 
       {/* 재생/정지 아이콘 플래시 */}
-      {showPlayIcon && (
+      {showPlayIcon && !endingActive && (
         <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
           <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center animate-fade-out">
             {isPlaying ? (
@@ -161,8 +180,8 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
         </div>
       )}
 
-      {/* 화면 어디든 탭하면 사라지는 음소거 해제 안내 */}
-      {isMuted && (
+      {/* 음소거 해제 안내 */}
+      {isMuted && !endingActive && (
         <div className="absolute top-20 left-3 z-20 flex items-center gap-3 rounded-sm bg-white px-4 py-3 text-[#111] shadow-md pointer-events-none">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="#111" className="shrink-0">
             <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
@@ -184,16 +203,17 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
 
       <ActionBar
         video={video}
-        onCommentOpen={openComments}
+        onCommentOpen={endingActive ? undefined : openComments}
         videoState={videoState}
-        onStateChange={onStateChange}
+        onStateChange={endingActive ? undefined : onStateChange}
         isRaised={isPausedActive}
+        shakingNumbers={shakingNumbers}
       />
 
       <VideoInfo
         video={video}
         videoState={videoState}
-        onStateChange={onStateChange}
+        onStateChange={endingActive ? undefined : onStateChange}
         isRaised={isPausedActive}
       />
 
@@ -201,7 +221,7 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
       <div
         ref={progressBarRef}
         className={`absolute left-0 right-0 z-30 flex items-center touch-none transition-[bottom,height,opacity] duration-200 ${
-          isPausedActive
+          isPausedActive && !endingActive
             ? "bottom-3 h-8 cursor-ew-resize opacity-100"
             : "bottom-0 h-5 pointer-events-none opacity-0"
         }`}
@@ -231,9 +251,12 @@ export default function ShortsPlayer({ video, isActive, videoState, onStateChang
       <CommentSheet
         video={video}
         videoState={videoState}
-        onStateChange={onStateChange}
+        onStateChange={endingActive ? () => {} : onStateChange}
         onClose={() => setShowComment(false)}
         isOpen={showComment}
+        useAiComments={useAiComments}
+        commentListRef={commentListRef}
+        endingActive={endingActive}
       />
     </div>
   );

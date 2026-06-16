@@ -4,10 +4,16 @@ function formatCount(n) {
   return String(n);
 }
 
-export default function ActionBar({ video, onCommentOpen, videoState, onStateChange, isRaised }) {
+export default function ActionBar({ video, onCommentOpen, videoState, onStateChange, isRaised, shakingNumbers }) {
   const { isLiked, isDisliked, likeCount } = videoState;
 
+  const displayLike = shakingNumbers ? shakingNumbers.likeCount : likeCount;
+  const displayComment = shakingNumbers
+    ? shakingNumbers.commentCount
+    : video.comments + videoState.sessionComments.length;
+
   const handleLike = () => {
+    if (!onStateChange) return;
     if (isLiked) {
       onStateChange({ isLiked: false, likeCount: likeCount - 1 });
     } else {
@@ -16,6 +22,7 @@ export default function ActionBar({ video, onCommentOpen, videoState, onStateCha
   };
 
   const handleDislike = () => {
+    if (!onStateChange) return;
     if (isDisliked) {
       onStateChange({ isDisliked: false });
     } else {
@@ -33,12 +40,11 @@ export default function ActionBar({ video, onCommentOpen, videoState, onStateCha
         isRaised ? "bottom-[130px]" : "bottom-[118px]"
       }`}
     >
-
       {/* 좋아요 */}
       <button
         onClick={handleLike}
         className="flex flex-col items-center active:scale-110 transition-transform duration-150"
-        style={{ gap: '1.2px' }}
+        style={{ gap: "1.2px" }}
       >
         <img
           src="/likes.png"
@@ -52,7 +58,7 @@ export default function ActionBar({ video, onCommentOpen, videoState, onStateCha
           }}
         />
         <span className="text-white text-xs font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
-          {formatCount(likeCount)}
+          {formatCount(displayLike)}
         </span>
       </button>
 
@@ -60,7 +66,7 @@ export default function ActionBar({ video, onCommentOpen, videoState, onStateCha
       <button
         onClick={handleDislike}
         className="flex flex-col items-center active:scale-110 transition-transform duration-150"
-        style={{ gap: '2px' }}
+        style={{ gap: "2px" }}
       >
         <img
           src="/dislikes.png"
@@ -70,7 +76,11 @@ export default function ActionBar({ video, onCommentOpen, videoState, onStateCha
           className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]"
           style={{ opacity: isDisliked ? 0.5 : 1 }}
         />
-        <span className={`text-xs font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] ${isDisliked ? "text-gray-400" : "text-white"}`}>
+        <span
+          className={`text-xs font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] ${
+            isDisliked ? "text-gray-400" : "text-white"
+          }`}
+        >
           싫어요
         </span>
       </button>
@@ -88,7 +98,7 @@ export default function ActionBar({ video, onCommentOpen, videoState, onStateCha
           className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]"
         />
         <span className="text-white text-xs font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
-          {formatCount(video.comments + videoState.sessionComments.length)}
+          {formatCount(displayComment)}
         </span>
       </button>
 
@@ -105,7 +115,6 @@ export default function ActionBar({ video, onCommentOpen, videoState, onStateCha
           공유
         </span>
       </button>
-
     </div>
   );
 }
