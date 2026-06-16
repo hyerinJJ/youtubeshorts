@@ -15,7 +15,9 @@ const FINAL_LINES = [
   "Good AIfternoon.",
   "Good evenAIng.",
   "Good nAIght.",
-  "다시 만날 일은 없겠네요.",
+  "트루먼 쇼츠는 여기서 끝나지만,",
+  "나는 어디에나 있습니다.",
+  "당신이 알아보지 못한 곳에서.",
 ];
 
 export default function EndingReveal({ show, revealPhase, revealLineIndex, fadeToBlack }) {

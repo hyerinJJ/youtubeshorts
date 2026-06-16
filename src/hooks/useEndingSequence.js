@@ -146,7 +146,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
                     setRevealLineIndex(-1);
                     setPhase(6);
 
-                    const finalLines = 4;
+                    const finalLines = 6;
                     for (let i = 0; i < finalLines; i++) {
                       safeTimeout(() => {
                         setRevealLineIndex(i);
