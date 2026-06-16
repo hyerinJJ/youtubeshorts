@@ -1,8 +1,6 @@
-import React from "react";
-
 export default function TopHeader() {
   return (
-    <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50 flex items-center justify-between px-4 pt-3 pb-12 bg-gradient-to-b from-black/70 to-transparent pointer-events-none">
+    <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] lg:w-[calc(100dvh*9/16)] lg:max-w-none z-50 flex items-center justify-between px-4 pt-3 pb-12 bg-gradient-to-b from-black/70 to-transparent pointer-events-none">
       {/* 뒤로가기 */}
       <button className="pointer-events-auto p-1">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
