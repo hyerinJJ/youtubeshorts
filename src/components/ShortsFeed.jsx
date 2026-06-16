@@ -58,20 +58,15 @@ export default function ShortsFeed() {
     onResetFeed: resetFeed,
   });
 
-  // Track whether we're already at the last video and an extra scroll attempt happens
-  const atEndRef = useRef(false);
-
-  useEffect(() => {
-    atEndRef.current = activeIndex === videos.length - 1;
-  }, [activeIndex]);
-
   // Wheel event: detect extra scroll past last video
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
     const handleWheel = (e) => {
       if (ending.isActive) { e.preventDefault(); return; }
-      if (atEndRef.current && e.deltaY > 0) {
+      // Use actual scrollTop instead of activeIndex state to avoid async lag
+      const atEnd = container.scrollTop >= container.scrollHeight - container.clientHeight - 2;
+      if (atEnd && e.deltaY > 0) {
         e.preventDefault();
         ending.trigger(
           videoStates[videos.length - 1].likeCount,
@@ -94,7 +89,8 @@ export default function ShortsFeed() {
       if (ending.isActive) return;
       if (touchStartYRef.current === null) return;
       const delta = touchStartYRef.current - e.changedTouches[0].clientY;
-      if (atEndRef.current && delta > 50) {
+      const atEnd = container.scrollTop >= container.scrollHeight - container.clientHeight - 2;
+      if (atEnd && delta > 50) {
         ending.trigger(
           videoStates[videos.length - 1].likeCount,
           videos[videos.length - 1].comments + videoStates[videos.length - 1].sessionComments.length,
