@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function VideoInfo({ video, videoState, onStateChange, isRaised, shakingChannel, shakingTitle }) {
+export default function VideoInfo({ video, videoState, onStateChange, isRaised, shakingChannel, shakingTitle, shakingMusic }) {
   const [expanded, setExpanded] = useState(false);
   const { isSubscribed } = videoState;
 
@@ -47,7 +47,7 @@ export default function VideoInfo({ video, videoState, onStateChange, isRaised, 
           </svg>
           <div className="min-w-0 flex-1">
             <p className="truncate text-white text-sm drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
-              {video.music}
+              {shakingMusic ?? video.music}
             </p>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { videos } from "../data/videos";
 import ShortsPlayer from "./ShortsPlayer";
 import { useEndingSequence } from "../hooks/useEndingSequence";
 import EndingReveal from "./EndingReveal";
+import IntroOverlay from "./IntroOverlay";
 
 function initVideoState(video) {
   return {
@@ -15,6 +16,7 @@ function initVideoState(video) {
 }
 
 export default function ShortsFeed() {
+  const [showIntro, setShowIntro] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
   const [videoStates, setVideoStates] = useState(() =>
     videos.map((v) => initVideoState(v))
@@ -39,6 +41,7 @@ export default function ShortsFeed() {
   const resetFeed = useCallback(() => {
     setVideoStates(videos.map((v) => initVideoState(v)));
     setActiveIndex(0);
+    setShowIntro(true);
     const container = containerRef.current;
     if (container) {
       const slides = container.querySelectorAll("[data-index]");
@@ -182,6 +185,7 @@ export default function ShortsFeed() {
               shakingNumbers={index === videos.length - 1 ? ending.shakingNumbers : null}
               shakingChannel={index === videos.length - 1 ? ending.shakingChannel : null}
               shakingTitle={index === videos.length - 1 ? ending.shakingTitle : null}
+              shakingMusic={index === videos.length - 1 ? ending.shakingMusic : null}
               useAiComments={index === videos.length - 1 ? ending.useAiComments : false}
               commentListRef={commentListRefs.current[index]}
               onRegisterCommentControl={(ctrl) => {
@@ -199,6 +203,8 @@ export default function ShortsFeed() {
           style={{ zIndex: 39, backgroundColor: ending.glitchColor }}
         />
       )}
+
+      <IntroOverlay show={showIntro} onDismiss={() => setShowIntro(false)} />
 
       {/* Ending overlay — sits above everything */}
       <EndingReveal

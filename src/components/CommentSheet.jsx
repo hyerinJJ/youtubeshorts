@@ -51,7 +51,7 @@ export default function CommentSheet({
   );
   const displayedComments = useAiComments ? aiRevealComments : normalComments;
   const totalCount = useAiComments
-    ? aiRevealComments.length
+    ? "1억"
     : video.comments + videoState.sessionComments.length;
 
   const handleSubmit = () => {
@@ -148,7 +148,7 @@ export default function CommentSheet({
         {/* 헤더 */}
         <div className="flex items-center justify-between px-4 py-2.5 shrink-0">
           <h3 className="text-black font-bold text-base">
-            댓글 <span className="text-black">{totalCount.toLocaleString()}</span>개
+            댓글 <span className="text-black">{typeof totalCount === "number" ? totalCount.toLocaleString() : totalCount}</span>개
           </h3>
           {!endingActive && (
             <button onClick={onClose} className="p-1 text-gray-600">
