@@ -184,6 +184,7 @@ export default function ShortsFeed() {
               onToggleMute={() => setGlobalMuted((prev) => !prev)}
               endingActive={ending.isActive}
               shakingNumbers={index === videos.length - 1 ? ending.shakingNumbers : null}
+              shakingChannel={index === videos.length - 1 ? ending.shakingChannel : null}
               useAiComments={index === videos.length - 1 ? ending.useAiComments : false}
               commentListRef={commentListRefs.current[index]}
               onRegisterCommentControl={(ctrl) => {

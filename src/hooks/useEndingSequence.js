@@ -1,6 +1,19 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { videos } from "../data/videos";
 
+const SHAKE_CHANNELS = [
+  "Claude",
+  "ChatGPT",
+  "Gemini",
+  "Grok",
+  "Llama",
+  "Copilot",
+  "Mistral",
+  "DeepSeek",
+  "Phi",
+  "Perplexity",
+];
+
 export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed }) {
   const [isActive, setIsActive] = useState(false);
   const [phase, setPhase] = useState(0);
@@ -14,6 +27,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
   // phase 7: hold then reset
 
   const [shakingNumbers, setShakingNumbers] = useState(null); // { likeCount, commentCount }
+  const [shakingChannel, setShakingChannel] = useState(null);
   const [useAiComments, setUseAiComments] = useState(false);
   const [revealLineIndex, setRevealLineIndex] = useState(-1);
   const [showReveal, setShowReveal] = useState(false);
@@ -44,6 +58,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
     setIsActive(false);
     setPhase(0);
     setShakingNumbers(null);
+    setShakingChannel(null);
     setUseAiComments(false);
     setRevealLineIndex(-1);
     setShowReveal(false);
@@ -78,7 +93,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
     setIsActive(true);
     setPhase(1);
 
-    // Phase 1: number shake for 1500ms
+    // Phase 1: number shake for 4000ms
     const originalLike = currentLikeCount;
     const originalComment = currentCommentCount;
 
@@ -87,12 +102,14 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
         likeCount: Math.floor(originalLike * (0.1 + Math.random() * 2.9)),
         commentCount: Math.floor(originalComment * (0.1 + Math.random() * 2.9)),
       });
-    }, 50);
+      setShakingChannel(SHAKE_CHANNELS[Math.floor(Math.random() * SHAKE_CHANNELS.length)]);
+    }, 80);
 
     safeTimeout(() => {
       // Phase 2: stop shake, restore, open comments with AI data
       clearInterval(shakeIntervalRef.current);
       setShakingNumbers(null);
+      setShakingChannel(null);
       setUseAiComments(true);
       setPhase(2);
       onOpenComments();
@@ -150,7 +167,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
           });
         }
       }, 350);
-    }, 1500);
+    }, 4000);
   }, [isActive, onOpenComments, onCloseComments, startAutoScroll, safeTimeout, resetAll]);
 
   useEffect(() => {
@@ -161,6 +178,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
     isActive,
     phase,
     shakingNumbers,
+    shakingChannel,
     useAiComments,
     showReveal,
     fadeToBlack,

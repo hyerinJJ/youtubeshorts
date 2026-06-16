@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function VideoInfo({ video, videoState, onStateChange, isRaised }) {
+export default function VideoInfo({ video, videoState, onStateChange, isRaised, shakingChannel }) {
   const [expanded, setExpanded] = useState(false);
   const { isSubscribed } = videoState;
 
@@ -28,7 +28,7 @@ export default function VideoInfo({ video, videoState, onStateChange, isRaised }
             />
           </div>
           <span className="text-white font-semibold text-sm drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] truncate max-w-[130px]">
-            {video.channel.handle}
+            {shakingChannel ?? video.channel.handle}
           </span>
           <button
             onClick={() => onStateChange({ isSubscribed: !isSubscribed })}

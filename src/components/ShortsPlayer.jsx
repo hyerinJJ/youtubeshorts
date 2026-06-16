@@ -13,6 +13,7 @@ export default function ShortsPlayer({
   onToggleMute,
   endingActive,
   shakingNumbers,
+  shakingChannel,
   useAiComments,
   commentListRef,
   onRegisterCommentControl,
@@ -215,6 +216,7 @@ export default function ShortsPlayer({
         videoState={videoState}
         onStateChange={endingActive ? undefined : onStateChange}
         isRaised={isPausedActive}
+        shakingChannel={shakingChannel}
       />
 
       {/* 진행바 */}
