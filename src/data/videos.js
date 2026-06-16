@@ -1,6 +1,14 @@
 const V1 = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-b2b8d8f6-3f26-4eda-8682-e331c9311df7_lSqMAn5S.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1iMmI4ZDhmNi0zZjI2LTRlZGEtODY4Mi1lMzMxYzkzMTFkZjdfbFNxTUFuNVMubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTM3MTkxMiwiZXhwIjoxODEyOTA3OTEyfQ.OW-Vo_b9e_PG-JQm7NVpL9xQiPK-K7w21JusgCRMXQI";
 const V2 = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-20fe131f-5399-4e09-a404-a70f8d3ed0c0_PBf2TKN8.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS0yMGZlMTMxZi01Mzk5LTRlMDktYTQwNC1hNzBmOGQzZWQwYzBfUEJmMlRLTjgubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTM3MTc1NCwiZXhwIjoxODEyOTA3NzU0fQ.rIkhDhz_biFNK2PCABjwyCnnZjENpVdRSSUZDlKtgoc";
 
+const CHANNEL_AVATARS = {
+  idollist: "https://loremflickr.com/160/160/cat?lock=7101",
+  pyeonmat: "https://picsum.photos/seed/pyeonmat-landscape/160/160",
+  kamdongcollector: "https://loremflickr.com/160/160/cat?lock=7103",
+  taeho: "https://picsum.photos/seed/taeho-landscape/160/160",
+  haeun: "https://loremflickr.com/160/160/cat?lock=7105",
+};
+
 const DOG_SHORT_COMMENTS = [
   "ㅠㅠㅠㅠㅠ", "눈물 난다 진짜", "너무 귀여워ㅠ", "아가야 행복해야 해", "오늘 꼭 안아줘야지", "마음이 너무 아프다", "꼬리 흔드는 거 봐ㅠ", "우리 애 보고 싶다",
   "이건 못 참지ㅠㅠ", "강아지는 천사야", "퇴근하고 바로 산책 간다", "왜 나를 울려요ㅠ", "표정이 너무 순해", "미안해 우리 아가", "짧게라도 놀아줘야겠다", "눈빛에서 사랑이 보여",
@@ -63,7 +71,7 @@ export const videos = [
     channel: {
       name: "아이돌리스트",
       handle: "@idollist",
-      avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=idollist",
+      avatarUrl: CHANNEL_AVATARS.idollist,
       verified: false,
     },
     title: "세현 이 장면 레전드인 이유 🔥 #세현 #아이돌 #직캠 #레전드",
@@ -291,7 +299,7 @@ export const videos = [
     channel: {
       name: "편맛",
       handle: "@pyeonmat",
-      avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=pyeonmat",
+      avatarUrl: CHANNEL_AVATARS.pyeonmat,
       verified: false,
     },
     title: "외국인들이 이걸 진짜 좋아한다고? 🏪 #편의점 #편맛 #koreanfood #불닭볶음면",
@@ -414,7 +422,7 @@ export const videos = [
   {
     id: "3",
     videoUrl: "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-f338d540-9e07-413b-b6d9-6588e5363d80-1_qj7JfiwI.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1mMzM4ZDU0MC05ZTA3LTQxM2ItYjZkOS02NTg4ZTUzNjNkODAtMV9xajdKZml3SS5tcDQiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxMzgyMzEyLCJleHAiOjE4MTI5MTgzMTJ9.6PieRTLrgHJlWCodD6Q3BO1YKmXJCo5HCllobeEYtpw",
-    channel: { name: "감동집합소", handle: "@kamdongcollector", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=kamdongcollector", verified: false },
+    channel: { name: "감동집합소", handle: "@kamdongcollector", avatarUrl: CHANNEL_AVATARS.kamdongcollector, verified: false },
     title: "바쁘다는 이유로 자꾸 미뤘던 산책, 강아지는 언제나 우리만 기다리고 있었습니다 🐶 #강아지 #반려견 #감동영상 #가족",
     music: "강아지가 평생 기억하는 보호자의 행동 7가지",
     likes: 12800, comments: 100, shares: 742,
@@ -486,13 +494,13 @@ export const videos = [
   {
     id: "4",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-    channel: { name: "코딩하는 태호", handle: "@taehodev", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=taeho", verified: true },
+    channel: { name: "코딩하는 태호", handle: "@taehodev", avatarUrl: CHANNEL_AVATARS.taeho, verified: true },
     title: "JavaScript 이거 모르면 면접 탈락 🔥 #코딩 #개발 #자바스크립트 #취업",
     music: "신입 개발자 면접에서 가장 많이 틀리는 JavaScript 질문",
     likes: 89100, comments: 2103, shares: 5678,
     comments_data: [
       { id: "c1", user: "취준생", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=jobseeker", text: "면접에서 실제로 저 질문 받았는데 대답 못했어요 ㅠㅠ", likes: 343, time: "5일 전",
-        replies: [{ id: "r1", user: "코딩하는 태호", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=taeho", text: "이제 알았으니까 다음엔 잘 하실 수 있어요! 화이팅 💪", likes: 112, time: "5일 전" }],
+        replies: [{ id: "r1", user: "코딩하는 태호", avatar: CHANNEL_AVATARS.taeho, text: "이제 알았으니까 다음엔 잘 하실 수 있어요! 화이팅 💪", likes: 112, time: "5일 전" }],
       },
       { id: "c2", user: "주니어개발자", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=junior", text: "클로저 개념이 항상 헷갈렸는데 이렇게 설명하니 이해됐어요!", likes: 289, time: "3일 전", replies: [] },
       { id: "c3", user: "CS전공자", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=csmajor", text: "호이스팅도 다뤄주실 수 있나요?", likes: 134, time: "2일 전", replies: [] },
@@ -501,13 +509,13 @@ export const videos = [
   {
     id: "5",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-    channel: { name: "뷰티 by 하은", handle: "@haeunbeauty", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=haeun", verified: false },
+    channel: { name: "뷰티 by 하은", handle: "@haeunbeauty", avatarUrl: CHANNEL_AVATARS.haeun, verified: false },
     title: "5분 완성 데일리 메이크업 ✨ #뷰티 #메이크업 #데일리룩 #꿀팁",
     music: "초보도 실패 없는 데일리 메이크업 풀버전",
     likes: 45600, comments: 678, shares: 1890,
     comments_data: [
       { id: "c1", user: "뷰린이", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=beautybegin", text: "파운데이션 브랜드가 뭐예요? 완전 자연스러워요", likes: 134, time: "6일 전",
-        replies: [{ id: "r1", user: "뷰티 by 하은", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=haeun", text: "맥 스튜디오 핏 써요! 커버력이 최고예요 😊", likes: 67, time: "6일 전" }],
+        replies: [{ id: "r1", user: "뷰티 by 하은", avatar: CHANNEL_AVATARS.haeun, text: "맥 스튜디오 핏 써요! 커버력이 최고예요 😊", likes: 67, time: "6일 전" }],
       },
       { id: "c2", user: "메이크업러버", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=makeuper", text: "쌍꺼풀 없는 사람도 할 수 있는 버전도 알려주세요!", likes: 178, time: "4일 전", replies: [] },
       { id: "c3", user: "직장인A", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=worker", text: "출근 전에 5분이면 진짜 되나요?? 도전해봐야겠다", likes: 92, time: "2일 전", replies: [] },
