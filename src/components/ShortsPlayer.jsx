@@ -14,6 +14,7 @@ export default function ShortsPlayer({
   endingActive,
   shakingNumbers,
   shakingChannel,
+  shakingTitle,
   useAiComments,
   commentListRef,
   onRegisterCommentControl,
@@ -217,6 +218,7 @@ export default function ShortsPlayer({
         onStateChange={endingActive ? undefined : onStateChange}
         isRaised={isPausedActive}
         shakingChannel={shakingChannel}
+        shakingTitle={shakingTitle}
       />
 
       {/* 진행바 */}

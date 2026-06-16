@@ -185,6 +185,7 @@ export default function ShortsFeed() {
               endingActive={ending.isActive}
               shakingNumbers={index === videos.length - 1 ? ending.shakingNumbers : null}
               shakingChannel={index === videos.length - 1 ? ending.shakingChannel : null}
+              shakingTitle={index === videos.length - 1 ? ending.shakingTitle : null}
               useAiComments={index === videos.length - 1 ? ending.useAiComments : false}
               commentListRef={commentListRefs.current[index]}
               onRegisterCommentControl={(ctrl) => {
@@ -194,6 +195,14 @@ export default function ShortsFeed() {
           </div>
         ))}
       </div>
+
+      {/* 글리치 오버레이 (Phase 1) */}
+      {ending.glitchColor && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ zIndex: 39, backgroundColor: ending.glitchColor }}
+        />
+      )}
 
       {/* Ending overlay — sits above everything */}
       <EndingReveal

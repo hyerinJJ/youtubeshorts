@@ -2,39 +2,38 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { videos } from "../data/videos";
 
 const SHAKE_CHANNELS = [
-  "Claude",
-  "ChatGPT",
-  "Gemini",
-  "Grok",
-  "Llama",
-  "Copilot",
-  "Mistral",
-  "DeepSeek",
-  "Phi",
-  "Perplexity",
+  "Claude", "ChatGPT", "Gemini", "Grok", "Llama",
+  "Copilot", "Mistral", "DeepSeek", "Phi", "Perplexity",
+];
+
+const SHAKE_TITLES = [
+  "이 영상은 AI가 만든 것입니다",
+  "당신은 지금 무엇을 보고 있나요?",
+  "SIMULATION RUNNING",
+  "ERROR: REAL CONTENT NOT FOUND",
+  "404 HUMAN NOT FOUND",
+  "이것도 전부 가짜입니다",
+  "AI GENERATED",
+  "당신도 AI인가요?",
+  "LOADING REALITY... FAILED",
+  "현실이 아닙니다",
 ];
 
 export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed }) {
   const [isActive, setIsActive] = useState(false);
   const [phase, setPhase] = useState(0);
-  // phase 0: idle
-  // phase 1: number shake
-  // phase 2: comment sheet open with AI comments
-  // phase 3: comment sheet auto-scroll
-  // phase 4: comment sheet close
-  // phase 5: reveal text (EndingReveal)
-  // phase 6: final lines
-  // phase 7: hold then reset
-
-  const [shakingNumbers, setShakingNumbers] = useState(null); // { likeCount, commentCount }
+  const [shakingNumbers, setShakingNumbers] = useState(null);
   const [shakingChannel, setShakingChannel] = useState(null);
+  const [shakingTitle, setShakingTitle] = useState(null);
+  const [glitchColor, setGlitchColor] = useState(null);
   const [useAiComments, setUseAiComments] = useState(false);
   const [revealLineIndex, setRevealLineIndex] = useState(-1);
   const [showReveal, setShowReveal] = useState(false);
   const [fadeToBlack, setFadeToBlack] = useState(false);
-  const [revealPhase, setRevealPhase] = useState("main"); // "main" | "final"
+  const [revealPhase, setRevealPhase] = useState("main"); // "main" | "middle" | "final"
 
   const shakeIntervalRef = useRef(null);
+  const glitchIntervalRef = useRef(null);
   const resetTimerRef = useRef(null);
   const rafRef = useRef(null);
   const timeoutsRef = useRef([]);
@@ -47,6 +46,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
 
   const clearAll = useCallback(() => {
     clearInterval(shakeIntervalRef.current);
+    clearInterval(glitchIntervalRef.current);
     clearTimeout(resetTimerRef.current);
     cancelAnimationFrame(rafRef.current);
     timeoutsRef.current.forEach(clearTimeout);
@@ -59,6 +59,8 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
     setPhase(0);
     setShakingNumbers(null);
     setShakingChannel(null);
+    setShakingTitle(null);
+    setGlitchColor(null);
     setUseAiComments(false);
     setRevealLineIndex(-1);
     setShowReveal(false);
@@ -67,23 +69,17 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
     onResetFeed();
   }, [clearAll, onResetFeed]);
 
-  // autoScroll for comment list
   const startAutoScroll = useCallback((listEl, onDone) => {
     let speed = 0.4;
     let pos = 0;
-
     function step() {
       if (!listEl) { onDone(); return; }
       const maxScroll = listEl.scrollHeight - listEl.clientHeight;
       speed = Math.min(speed * 1.018, 6);
       pos = Math.min(pos + speed, maxScroll);
       listEl.scrollTop = pos;
-
-      if (pos >= maxScroll) {
-        onDone();
-      } else {
-        rafRef.current = requestAnimationFrame(step);
-      }
+      if (pos >= maxScroll) { onDone(); }
+      else { rafRef.current = requestAnimationFrame(step); }
     }
     rafRef.current = requestAnimationFrame(step);
   }, []);
@@ -93,38 +89,47 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
     setIsActive(true);
     setPhase(1);
 
-    // Phase 1: number shake for 4000ms
     const originalLike = currentLikeCount;
     const originalComment = currentCommentCount;
 
+    // Numbers + channel + title shake every 80ms
     shakeIntervalRef.current = setInterval(() => {
       setShakingNumbers({
         likeCount: Math.floor(originalLike * (0.1 + Math.random() * 2.9)),
         commentCount: Math.floor(originalComment * (0.1 + Math.random() * 2.9)),
       });
       setShakingChannel(SHAKE_CHANNELS[Math.floor(Math.random() * SHAKE_CHANNELS.length)]);
+      setShakingTitle(SHAKE_TITLES[Math.floor(Math.random() * SHAKE_TITLES.length)]);
     }, 80);
 
+    // Black/white glitch flash every 40ms
+    glitchIntervalRef.current = setInterval(() => {
+      const r = Math.random();
+      if (r < 0.30) setGlitchColor("#ffffff");
+      else if (r < 0.50) setGlitchColor("#000000");
+      else setGlitchColor(null);
+    }, 40);
+
+    // Phase 1 ends after 2500ms
     safeTimeout(() => {
-      // Phase 2: stop shake, restore, open comments with AI data
       clearInterval(shakeIntervalRef.current);
+      clearInterval(glitchIntervalRef.current);
       setShakingNumbers(null);
       setShakingChannel(null);
+      setShakingTitle(null);
+      setGlitchColor(null);
       setUseAiComments(true);
       setPhase(2);
       onOpenComments();
 
-      // Phase 3: after sheet opens (300ms anim), start auto scroll
       safeTimeout(() => {
         setPhase(3);
         if (commentListRef?.current) {
           startAutoScroll(commentListRef.current, () => {
-            // Phase 4: wait 1s then close
             safeTimeout(() => {
               setPhase(4);
               onCloseComments();
 
-              // Phase 5: 300ms after close anim, fade to black + show reveal
               safeTimeout(() => {
                 setFadeToBlack(true);
                 safeTimeout(() => {
@@ -132,34 +137,44 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
                   setRevealPhase("main");
                   setPhase(5);
 
-                  // Show main lines one by one (8 lines × 1000ms)
-                  const mainLines = 8;
+                  // Main lines: 7 × 1s
+                  const mainLines = 7;
                   for (let i = 0; i < mainLines; i++) {
-                    safeTimeout(() => {
-                      setRevealLineIndex(i);
-                    }, i * 1000);
+                    safeTimeout(() => setRevealLineIndex(i), i * 1000);
                   }
 
-                  // Phase 6: after main lines done, switch to final lines
+                  // Transition to middle phase (800ms fade gap)
                   safeTimeout(() => {
-                    setRevealPhase("final");
+                    setRevealPhase("middle");
                     setRevealLineIndex(-1);
-                    setPhase(6);
 
-                    const finalLines = 6;
-                    for (let i = 0; i < finalLines; i++) {
-                      safeTimeout(() => {
-                        setRevealLineIndex(i);
-                      }, i * 1000);
-                    }
-
-                    // Phase 7: after last line fades in, wait 10s then reset
                     safeTimeout(() => {
-                      setPhase(7);
-                      resetTimerRef.current = setTimeout(() => {
-                        resetAll();
-                      }, 10000);
-                    }, (finalLines - 1) * 1000 + 500);
+                      setPhase(6);
+                      const middleLines = 4;
+                      for (let i = 0; i < middleLines; i++) {
+                        safeTimeout(() => setRevealLineIndex(i), i * 1000);
+                      }
+
+                      // Transition to final phase (800ms fade gap)
+                      safeTimeout(() => {
+                        setRevealPhase("final");
+                        setRevealLineIndex(-1);
+
+                        safeTimeout(() => {
+                          setPhase(7);
+                          const finalLines = 6;
+                          for (let i = 0; i < finalLines; i++) {
+                            safeTimeout(() => setRevealLineIndex(i), i * 1000);
+                          }
+
+                          // Hold 10s then reset
+                          safeTimeout(() => {
+                            setPhase(8);
+                            resetTimerRef.current = setTimeout(() => resetAll(), 10000);
+                          }, (finalLines - 1) * 1000 + 500);
+                        }, 800);
+                      }, middleLines * 1000 + 500);
+                    }, 800);
                   }, mainLines * 1000 + 500);
                 }, 500);
               }, 400);
@@ -167,7 +182,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
           });
         }
       }, 350);
-    }, 4000);
+    }, 2500);
   }, [isActive, onOpenComments, onCloseComments, startAutoScroll, safeTimeout, resetAll]);
 
   useEffect(() => {
@@ -179,6 +194,8 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
     phase,
     shakingNumbers,
     shakingChannel,
+    shakingTitle,
+    glitchColor,
     useAiComments,
     showReveal,
     fadeToBlack,

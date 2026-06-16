@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function VideoInfo({ video, videoState, onStateChange, isRaised, shakingChannel }) {
+export default function VideoInfo({ video, videoState, onStateChange, isRaised, shakingChannel, shakingTitle }) {
   const [expanded, setExpanded] = useState(false);
   const { isSubscribed } = videoState;
 
@@ -53,7 +53,11 @@ export default function VideoInfo({ video, videoState, onStateChange, isRaised, 
         </div>
 
         {/* 영상 제목 */}
-        {expanded ? (
+        {shakingTitle ? (
+          <p className="text-white text-sm leading-snug drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] line-clamp-1">
+            {shakingTitle}
+          </p>
+        ) : expanded ? (
           <p className="text-white text-sm leading-snug drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
             {video.title}
             <button onClick={() => setExpanded(false)} className="text-white/60 ml-1 text-xs">접기</button>
