@@ -51,11 +51,28 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
   const resetTimerRef = useRef(null);
   const rafRef = useRef(null);
   const timeoutsRef = useRef([]);
+  const audioRef = useRef(null);
 
   const safeTimeout = useCallback((fn, ms) => {
     const id = setTimeout(fn, ms);
     timeoutsRef.current.push(id);
     return id;
+  }, []);
+
+  const fadeOutAudio = useCallback((duration = 1500) => {
+    const audio = audioRef.current;
+    if (!audio || audio.paused) return;
+    const start = audio.volume;
+    const step = start / (duration / 50);
+    const fade = setInterval(() => {
+      if (audio.volume > step) {
+        audio.volume = Math.max(0, audio.volume - step);
+      } else {
+        audio.volume = 0;
+        audio.pause();
+        clearInterval(fade);
+      }
+    }, 50);
   }, []);
 
   const clearAll = useCallback(() => {
@@ -65,6 +82,11 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
     cancelAnimationFrame(rafRef.current);
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      audioRef.current.volume = 1;
+    }
   }, []);
 
   const resetAll = useCallback(() => {
@@ -103,6 +125,14 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
     if (isActive) return;
     setIsActive(true);
     setPhase(1);
+
+    // 엔딩 사운드 재생
+    if (!audioRef.current) {
+      audioRef.current = new Audio("/ending.mp3");
+    }
+    audioRef.current.currentTime = 0;
+    audioRef.current.volume = 1;
+    audioRef.current.play().catch(() => {});
 
     const originalLike = currentLikeCount;
     const originalComment = currentCommentCount;
@@ -182,6 +212,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
 
                           safeTimeout(() => {
                             setPhase(8);
+                            fadeOutAudio(4000);
                             resetTimerRef.current = setTimeout(() => resetAll(), 5000);
                           }, (finalLines - 1) * 1000 + 500);
                         }, 800);
@@ -195,7 +226,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
         }
       }, 350);
     }, 2500);
-  }, [isActive, onOpenComments, onCloseComments, startAutoScroll, safeTimeout, resetAll]);
+  }, [isActive, onOpenComments, onCloseComments, startAutoScroll, safeTimeout, resetAll, fadeOutAudio]);
 
   useEffect(() => {
     return () => clearAll();
