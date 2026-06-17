@@ -153,7 +153,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
                   setRevealPhase("main");
                   setPhase(5);
 
-                  const mainLines = 7;
+                  const mainLines = 6;
                   for (let i = 0; i < mainLines; i++) {
                     safeTimeout(() => setRevealLineIndex(i), i * 1000);
                   }
