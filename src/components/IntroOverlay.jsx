@@ -1,6 +1,6 @@
 export default function IntroOverlay({ show, onDismiss }) {
   const lineStyle = {
-    fontSize: "1.15rem",
+    fontSize: "1.45rem",
     fontWeight: 400,
     color: "#fff",
     textShadow: "0 2px 12px rgba(0,0,0,0.9)",
@@ -20,7 +20,7 @@ export default function IntroOverlay({ show, onDismiss }) {
     >
       <div className="flex flex-col items-center" style={{ marginBottom: "0.4rem" }}>
         <p style={lineStyle}>
-          이 중에서 <span style={bold}>AI</span> 생성물이 아닌
+          이 중에서 <span style={bold}>AI</span> 생성물이 <span style={{ fontWeight: 700, color: "#ff4444" }}>아닌</span>
         </p>
         <p style={{ ...lineStyle, marginBottom: "1.4rem" }}>
           <span style={bold}>단 한 개</span>의 영상을 찾아보세요.
