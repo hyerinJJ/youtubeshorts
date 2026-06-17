@@ -11,6 +11,7 @@ export default function ShortsPlayer({
   onStateChange,
   isMuted,
   onToggleMute,
+  introActive,
   endingActive,
   shakingNumbers,
   shakingChannel,
@@ -41,13 +42,13 @@ export default function ShortsPlayer({
 
   useEffect(() => {
     if (!videoRef.current) return;
-    if (isActive && !endingActive) {
+    if (isActive && !endingActive && !introActive) {
       videoRef.current.play().catch(() => {});
     } else {
       videoRef.current.pause();
       if (!isActive) videoRef.current.currentTime = 0;
     }
-  }, [isActive, endingActive]);
+  }, [isActive, endingActive, introActive]);
 
   useEffect(() => {
     if (videoRef.current) {

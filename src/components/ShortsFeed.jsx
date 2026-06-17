@@ -182,6 +182,7 @@ export default function ShortsFeed() {
               onStateChange={(changes) => handleStateChange(index, changes)}
               isMuted={globalMuted}
               onToggleMute={() => setGlobalMuted((prev) => !prev)}
+              introActive={showIntro}
               endingActive={ending.isActive}
               shakingNumbers={index === videos.length - 1 ? ending.shakingNumbers : null}
               shakingChannel={index === videos.length - 1 ? ending.shakingChannel : null}
