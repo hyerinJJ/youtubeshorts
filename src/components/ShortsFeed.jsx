@@ -61,6 +61,14 @@ export default function ShortsFeed() {
     onResetFeed: resetFeed,
   });
 
+  // Track when user first arrives at the last video (for desktop cooldown)
+  const lastVideoArrivalRef = useRef(0);
+  useEffect(() => {
+    if (activeIndex === videos.length - 1) {
+      lastVideoArrivalRef.current = Date.now();
+    }
+  }, [activeIndex]);
+
   // Wheel event: detect extra scroll past last video
   useEffect(() => {
     const container = containerRef.current;
@@ -71,6 +79,9 @@ export default function ShortsFeed() {
       const atEnd = container.scrollTop >= container.scrollHeight - container.clientHeight - 2;
       if (atEnd && e.deltaY > 0) {
         e.preventDefault();
+        // 800ms cooldown: ignore wheel events that are part of the scroll animation
+        // that brought the user to the last video (desktop trackpad issue)
+        if (Date.now() - lastVideoArrivalRef.current < 800) return;
         ending.trigger(
           videoStates[videos.length - 1].likeCount,
           videos[videos.length - 1].comments + videoStates[videos.length - 1].sessionComments.length,
@@ -198,8 +209,8 @@ export default function ShortsFeed() {
         ))}
       </div>
 
-      {/* 글리치 오버레이 (Phase 1) */}
-      {ending.glitchColor && (
+      {/* 글리치 오버레이 (Phase 1 한정) */}
+      {ending.phase === 1 && ending.glitchColor && (
         <div
           className="absolute inset-0 pointer-events-none"
           style={{ zIndex: 39, backgroundColor: ending.glitchColor }}
