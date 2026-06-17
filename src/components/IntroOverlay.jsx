@@ -1,11 +1,11 @@
 export default function IntroOverlay({ show, onDismiss }) {
   const lineStyle = {
-    fontSize: "0.82rem",
+    fontSize: "1.15rem",
     fontWeight: 400,
     color: "#fff",
     textShadow: "0 2px 12px rgba(0,0,0,0.9)",
     whiteSpace: "nowrap",
-    marginBottom: "0.55rem",
+    marginBottom: "0.5rem",
     letterSpacing: "0.01em",
   };
   const bold = { fontWeight: 700 };
@@ -18,9 +18,12 @@ export default function IntroOverlay({ show, onDismiss }) {
       style={{ backgroundColor: "rgba(0,0,0,0.85)" }}
       onClick={onDismiss}
     >
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center" style={{ marginBottom: "0.4rem" }}>
         <p style={lineStyle}>
-          이 중에서 <span style={bold}>AI</span> 생성물이 아닌 <span style={bold}>단 한 개</span>의 영상을 찾아보세요.
+          이 중에서 <span style={bold}>AI</span> 생성물이 아닌
+        </p>
+        <p style={{ ...lineStyle, marginBottom: "1.4rem" }}>
+          <span style={bold}>단 한 개</span>의 영상을 찾아보세요.
         </p>
         <p style={lineStyle}>
           <span style={bold}>댓글</span>에 힌트가 있으니 잘 살펴보세요!
