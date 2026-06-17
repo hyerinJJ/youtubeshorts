@@ -48,6 +48,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
 
   const shakeIntervalRef = useRef(null);
   const glitchIntervalRef = useRef(null);
+  const glitchActiveRef = useRef(false);
   const resetTimerRef = useRef(null);
   const rafRef = useRef(null);
   const timeoutsRef = useRef([]);
@@ -76,6 +77,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
   }, []);
 
   const clearAll = useCallback(() => {
+    glitchActiveRef.current = false;
     clearInterval(shakeIntervalRef.current);
     clearInterval(glitchIntervalRef.current);
     clearTimeout(resetTimerRef.current);
@@ -148,8 +150,14 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
       setShakingMusic(SHAKE_MUSIC[Math.floor(Math.random() * SHAKE_MUSIC.length)]);
     }, 80);
 
-    // Black/white glitch flash every 40ms
+    // Black/white glitch flash every 40ms (self-terminates via glitchActiveRef)
+    glitchActiveRef.current = true;
     glitchIntervalRef.current = setInterval(() => {
+      if (!glitchActiveRef.current) {
+        clearInterval(glitchIntervalRef.current);
+        setGlitchColor(null);
+        return;
+      }
       const r = Math.random();
       if (r < 0.30) setGlitchColor("#ffffff");
       else if (r < 0.50) setGlitchColor("#000000");
@@ -157,6 +165,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
     }, 40);
 
     safeTimeout(() => {
+      glitchActiveRef.current = false;
       clearInterval(shakeIntervalRef.current);
       clearInterval(glitchIntervalRef.current);
       setShakingNumbers(null);

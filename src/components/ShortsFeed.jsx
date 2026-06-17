@@ -61,13 +61,27 @@ export default function ShortsFeed() {
     onResetFeed: resetFeed,
   });
 
-  // Track when user first arrives at the last video (for desktop cooldown)
-  const lastVideoArrivalRef = useRef(0);
+  // scrollSettledRef: true only when scroll has stopped for 250ms AND we're at the last video.
+  // Prevents the scroll gesture that brings the user TO the last video from triggering the ending.
+  const scrollSettledRef = useRef(false);
   useEffect(() => {
-    if (activeIndex === videos.length - 1) {
-      lastVideoArrivalRef.current = Date.now();
-    }
-  }, [activeIndex]);
+    const container = containerRef.current;
+    if (!container) return;
+    let timer = null;
+    const onScroll = () => {
+      scrollSettledRef.current = false;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const atEnd = container.scrollTop >= container.scrollHeight - container.clientHeight - 2;
+        scrollSettledRef.current = atEnd;
+      }, 250);
+    };
+    container.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      container.removeEventListener("scroll", onScroll);
+      clearTimeout(timer);
+    };
+  }, []);
 
   // Wheel event: detect extra scroll past last video
   useEffect(() => {
@@ -79,9 +93,7 @@ export default function ShortsFeed() {
       const atEnd = container.scrollTop >= container.scrollHeight - container.clientHeight - 2;
       if (atEnd && e.deltaY > 0) {
         e.preventDefault();
-        // 800ms cooldown: ignore wheel events that are part of the scroll animation
-        // that brought the user to the last video (desktop trackpad issue)
-        if (Date.now() - lastVideoArrivalRef.current < 800) return;
+        if (!scrollSettledRef.current) return; // still animating — not an intentional extra scroll
         ending.trigger(
           videoStates[videos.length - 1].likeCount,
           videos[videos.length - 1].comments + videoStates[videos.length - 1].sessionComments.length,
