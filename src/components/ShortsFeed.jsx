@@ -61,25 +61,32 @@ export default function ShortsFeed() {
     onResetFeed: resetFeed,
   });
 
-  // scrollSettledRef: true only when scroll has stopped for 250ms AND we're at the last video.
-  // Prevents the scroll gesture that brings the user TO the last video from triggering the ending.
+  // scrollSettledRef: true only when ALL scrolling (including Mac inertia) has stopped
+  // AND we're at the last video. Uses scrollend event + 700ms debounce fallback.
   const scrollSettledRef = useRef(false);
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    let timer = null;
+    let debounceTimer = null;
+
+    const checkSettled = () => {
+      const atEnd = container.scrollTop >= container.scrollHeight - container.clientHeight - 2;
+      scrollSettledRef.current = atEnd;
+    };
+
     const onScroll = () => {
       scrollSettledRef.current = false;
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        const atEnd = container.scrollTop >= container.scrollHeight - container.clientHeight - 2;
-        scrollSettledRef.current = atEnd;
-      }, 250);
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(checkSettled, 700); // fallback for browsers without scrollend
     };
+
     container.addEventListener("scroll", onScroll, { passive: true });
+    container.addEventListener("scrollend", checkSettled, { passive: true });
+
     return () => {
       container.removeEventListener("scroll", onScroll);
-      clearTimeout(timer);
+      container.removeEventListener("scrollend", checkSettled);
+      clearTimeout(debounceTimer);
     };
   }, []);
 
