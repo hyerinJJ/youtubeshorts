@@ -15,7 +15,9 @@ export default function IntroOverlay({ show, onDismiss }) {
           wordBreak: "keep-all",
         }}
       >
-        마지막 쇼츠까지 꼭 봐주세요!!
+        쇼츠와 댓글을 자유롭게 감상해주세요!{" "}
+        <br />
+        마지막 쇼츠까지 꼭 봐주세요!
       </p>
       <p className="text-white/50 text-sm mt-8 tracking-wide">탭하여 시작</p>
     </div>
