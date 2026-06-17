@@ -1,6 +1,8 @@
 const V1 = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-f338d540-9e07-413b-b6d9-6588e5363d80-1_qj7JfiwI.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1mMzM4ZDU0MC05ZTA3LTQxM2ItYjZkOS02NTg4ZTUzNjNkODAtMV9xajdKZml3SS5tcDQiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxNzIwMTMyLCJleHAiOjE4MTMyNTYxMzJ9.TmDJYk4wVLUq_VafQBhaELG3Rj1YzfdvU968KfVvTO4";
 const V2 = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-20fe131f-5399-4e09-a404-a70f8d3ed0c0_PBf2TKN8.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS0yMGZlMTMxZi01Mzk5LTRlMDktYTQwNC1hNzBmOGQzZWQwYzBfUEJmMlRLTjgubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTM3MTc1NCwiZXhwIjoxODEyOTA3NzU0fQ.rIkhDhz_biFNK2PCABjwyCnnZjENpVdRSSUZDlKtgoc";
 
+const V_IDOL = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-b2b8d8f6-3f26-4eda-8682-e331c9311df7_lSqMAn5S.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1iMmI4ZDhmNi0zZjI2LTRlZGEtODY4Mi1lMzMxYzkzMTFkZjdfbFNxTUFuNVMubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTM3MTkxMiwiZXhwIjoxODEyOTA3OTEyfQ.OW-Vo_b9e_PG-JQm7NVpL9xQiPK-K7w21JusgCRMXQI";
+
 const CHANNEL_AVATARS = {
   dietforever: "https://picsum.photos/seed/dietforever-body/160/160",
   idollist: "https://loremflickr.com/160/160/cat?lock=7101",
@@ -216,6 +218,136 @@ export const videos = [
   },
   {
     id: "2",
+    videoUrl: V_IDOL,
+    channel: {
+      name: "아이돌리스트",
+      handle: "@idollist",
+      avatarUrl: CHANNEL_AVATARS.idollist,
+      verified: false,
+    },
+    title: "세현 이 장면 레전드인 이유 🔥 #세현 #아이돌 #직캠 #레전드",
+    music: "세현 무대 직캠 풀버전｜레전드 순간 모음",
+    likes: 58400,
+    comments: 812,
+    shares: 4102,
+    comments_data: [
+      { id: "c0a", user: "prvbnzmq", avatar: "", text: "1빠다", likes: 0, time: "6일 전", replies: [] },
+      { id: "c0b", user: "kwlxjqbz", avatar: "", text: "2빠는 못참지ㅠ", likes: 0, time: "6일 전", replies: [] },
+      { id: "c0c", user: "tmxqnbzv", avatar: "", text: "3빠ㅠㅠ 늦었다", likes: 0, time: "6일 전", replies: [] },
+      { id: "c1", user: "xkptmvqr", avatar: "", text: "숏츠 보다가 여기까지 왔는데 알고리즘 오늘 신이었다 ㄹㅇ 구독 박고 갑니다", likes: 1842, time: "6일 전",
+        replies: [
+          { id: "r1", user: "bnzrqlfw", avatar: "", text: "ㅇㅈ 알고리즘 고마워서 댓글 달고 감", likes: 234, time: "6일 전" },
+          { id: "r2", user: "jdvhspkm", avatar: "", text: "잘 오셨어요 여기 세현 영상 다 명작임", likes: 56, time: "5일 전" },
+        ],
+      },
+      { id: "c2", user: "wlnfqzbt", avatar: "", text: "얼굴이 왜 저래 진짜 인간이 맞냐고 뇌가 녹는 수준 ㄹㅇ", likes: 1230, time: "6일 전",
+        replies: [
+          { id: "r1", user: "pqrmzxkj", avatar: "", text: "ㄹㅇ 저게 사람임? 비현실적으로 생겼어", likes: 189, time: "5일 전" },
+          { id: "r2", user: "zlhqbntv", avatar: "", text: "피지컬 말이 안 됨 진짜", likes: 78, time: "5일 전" },
+        ],
+      },
+      { id: "c3", user: "rvndpjls", avatar: "", text: "I wasn't supposed to be here but the algorithm dragged me in 😭😭 now I'm 3 hours deep", likes: 890, time: "5일 전",
+        replies: [
+          { id: "r1", user: "idollist", avatar: "", text: "Welcome!! We have plenty more 🥹", likes: 67, time: "5일 전" },
+          { id: "r2", user: "kxwqmfbt", avatar: "", text: "join the club you can never escape lol", likes: 34, time: "4일 전" },
+        ],
+      },
+      { id: "c4", user: "hqmzkxbt", avatar: "", text: "7년 덕질하면서 이런 거 처음 봄ㅠ 세현아 고마워 오늘도 버텼다 ㄹㅇ", likes: 743, time: "5일 전",
+        replies: [
+          { id: "r1", user: "vbnqrlsm", avatar: "", text: "저도요ㅜㅜ 힘든 날 세현 보면 그냥 버텨짐", likes: 123, time: "5일 전" },
+          { id: "r2", user: "wkxmqrzt", avatar: "", text: "7년이면 찐팬이다 존경함 진짜", likes: 45, time: "4일 전" },
+        ],
+      },
+      { id: "c5", user: "fzbnqrkx", avatar: "", text: "0:23 저 부분 50번은 돌려봄 눈빛이 레전드임 저만 그런 거 아니겠지", likes: 567, time: "5일 전",
+        replies: [
+          { id: "r1", user: "qxvnbkrz", avatar: "", text: "ㄹㅇ 그 파트 진짜 소름이잖아 계속 돌려봄", likes: 89, time: "5일 전" },
+          { id: "r2", user: "tjkxvmnq", avatar: "", text: "0:23 YES that part is everything 😭😭", likes: 45, time: "4일 전" },
+        ],
+      },
+      { id: "c6", user: "lhwpqrmt", avatar: "", text: "세현 팬들 솔직히 좀 이상한 거 아님? 뇌 빠진 거 아닌지 ㄹㅇ 그냥 평균 아이돌인데 과대평가가 심함", likes: 34, time: "4일 전",
+        replies: [
+          { id: "r1", user: "bvkrqpms", avatar: "", text: "뭘 안다고 와서 떠드는 건지 직캠 조회수 1위인데 평균이 어딨음", likes: 456, time: "4일 전" },
+          { id: "r2", user: "jwnqxvtz", avatar: "", text: "세현 영상에서 이러는 거 좀 웃기지 않냐고 차단이나 박으세요", likes: 312, time: "3일 전" },
+          { id: "r3", user: "lhwpqrmt", avatar: "", text: "의견도 못 말하나요 팬덤이 왜 이래", likes: 12, time: "3일 전" },
+          { id: "r4", user: "mkptzrwx", avatar: "", text: "의견이랑 악플은 다름 ㄹㅇ 팩트도 없이 깎아내리면 당연히 반응 오는 거죠", likes: 234, time: "2일 전" },
+        ],
+      },
+      { id: "c7", user: "dkwnzqbt", avatar: "", text: "이거 보고 입덕 각이다 아 또 빠지겠네 진짜 망함 🔥", likes: 445, time: "4일 전",
+        replies: [
+          { id: "r1", user: "nxqvkrmt", avatar: "", text: "같이 망해요 환영합니다 이미 늦었음", likes: 189, time: "3일 전" },
+          { id: "r2", user: "qbvznjlt", avatar: "", text: "나만 그런 게 아니었구나 저도 오늘 입덕함", likes: 67, time: "3일 전" },
+        ],
+      },
+      { id: "c8", user: "xvnzqmkb", avatar: "", text: "Stumbled upon this and genuinely cannot function 😭 she is so unreal I've been on loop for hours", likes: 2143, time: "3일 전",
+        replies: [
+          { id: "r1", user: "jlhqmntx", avatar: "", text: "Same omg I had plans today and now look at me 💀", likes: 412, time: "3일 전" },
+          { id: "r2", user: "rqkzmxvb", avatar: "", text: "why is she so perfect 😭 I need her whole discography NOW", likes: 3, time: "2일 전" },
+        ],
+      },
+      { id: "c9", user: "tnwmkxqv", avatar: "", text: "저만 소름인가요 세현 눈빛 보는 순간 심장 멈춤 ㄹㅇ 이건 반칙이잖아", likes: 523, time: "3일 전",
+        replies: [
+          { id: "r1", user: "vkxqjnzm", avatar: "", text: "저도요ㅠ 나만 그런 게 아니었구나 진짜로", likes: 67, time: "2일 전" },
+        ],
+      },
+      { id: "c10", user: "bhrqxnzm", avatar: "", text: "팬들아 냉정하게 이번 앨범 성적 봤음? 거품 빠지는 거 아닌지 ㄹㅇ", likes: 29, time: "3일 전",
+        replies: [
+          { id: "r1", user: "pjkzrxwq", avatar: "", text: "마케팅 문제지 세현 잘못이 어딨음 그리고 팬미팅 3분 매진인데 거품이 어딨어요", likes: 345, time: "3일 전" },
+          { id: "r2", user: "qwzmxkrv", avatar: "", text: "와서 왜 이러는 거임 진짜 신고 박고 갑니다", likes: 234, time: "2일 전" },
+          { id: "r3", user: "bhrqxnzm", avatar: "", text: "팬들 왜 이렇게 예민함 그냥 한 말인데", likes: 8, time: "2일 전" },
+          { id: "r4", user: "nkbzxqwm", avatar: "", text: "그냥 한 말치고 악의가 너무 느껴지는데요^^ 차단 박고 갑니다", likes: 445, time: "1일 전" },
+        ],
+      },
+      { id: "c11", user: "xqvnmzrk", avatar: "", text: "0:47 저 표정 미쳤다 진짜 이 파트만 백 번은 본 것 같음 자야 되는데 계속 돌려봄ㅠ", likes: 389, time: "2일 전",
+        replies: [
+          { id: "r1", user: "mxkqrznv", avatar: "", text: "ㄹㅇ 그 파트 진짜 다른 레벨이잖아", likes: 56, time: "2일 전" },
+        ],
+      },
+      { id: "c12", user: "fzxqknvr", avatar: "", text: "How is nobody talking about how insane this stage presence is?? 🫠", likes: 7, time: "2일 전",
+        replies: [
+          { id: "r1", user: "kqxvnzmb", avatar: "", text: "SAME she just has something that can't be taught 🔥", likes: 2, time: "2일 전" },
+        ],
+      },
+      { id: "c13", user: "tbxqnzmk", avatar: "", text: "왜 아이돌 영상마다 와서 악플 다는 거임 진짜 본인 최애나 보러 가세요", likes: 178, time: "2일 전",
+        replies: [
+          { id: "r1", user: "vxnqkzmr", avatar: "", text: "ㅇㅈ 신고하고 무시하면 됩니다", likes: 134, time: "2일 전" },
+          { id: "r2", user: "jqxzmvkn", avatar: "", text: "반응 주면 알고리즘에 뜨니까 그냥 신고만 박으세요", likes: 89, time: "1일 전" },
+        ],
+      },
+      { id: "c14", user: "dxqnvkzm", avatar: "", text: "팬사인회에서 실물 봤는데 ㄹㅇ 영상이 실물의 절반도 못 담은 거 맞음😭 실제로 보면 진짜 기절함", likes: 1987, time: "1일 전",
+        replies: [
+          { id: "r1", user: "hqxzmkvn", avatar: "", text: "부럽습니다ㅠ 저는 추첨에서 계속 떨어져서... 언젠간 꼭", likes: 4, time: "1일 전" },
+        ],
+      },
+      { id: "c15", user: "pxqvkzmn", avatar: "", text: "우리 세현이 오늘도 열일 세현아 제발 나 좀 봐줘 팬사 뽑아줘 제발ㅠ", likes: 267, time: "1일 전",
+        replies: [
+          { id: "r1", user: "nqxvzmkb", avatar: "", text: "같이 당첨되자 몇 년째 떨어지는 건지ㅠ", likes: 34, time: "1일 전" },
+        ],
+      },
+      { id: "c16", user: "yrbnqzxv", avatar: "", text: "이 채널 왜 이제 발견함 ㄹㅇ 구독 박고 알림 설정까지 했음 🔥", likes: 334, time: "1일 전",
+        replies: [
+          { id: "r1", user: "idollist", avatar: "", text: "감사합니다!!! 세현 영상 계속 올릴게요 🥹", likes: 45, time: "23시간 전" },
+        ],
+      },
+      { id: "c17", user: "pnkxvqzr", avatar: "", text: "요즘 진짜 너무 힘들었는데 세현 이거 보고 다시 힘냄 ㄹㅇ 고마워ㅠ", likes: 489, time: "22시간 전",
+        replies: [
+          { id: "r1", user: "ltwnmbqx", avatar: "", text: "저도요ㅜㅜ 같이 버텨봐요 💪", likes: 89, time: "21시간 전" },
+        ],
+      },
+      { id: "c18", user: "dqxvnzbm", avatar: "", text: "피지컬이 말이 안 됨 저 키에 저 비율에 저 얼굴까지 이게 사람임? 🫠", likes: 2089, time: "9시간 전",
+        replies: [
+          { id: "r1", user: "wqxvnzbm", avatar: "", text: "ㄹㅇ 현실에 존재하는 게 신기한 레벨이잖아", likes: 287, time: "8시간 전" },
+        ],
+      },
+      { id: "c19", user: "pqrxknzv", avatar: "", text: "완성형 아이돌이다 ㄹㅇ 비주얼 실력 퍼포 다 갖춘 거 이런 거 얼마만에 보는 건지", likes: 1756, time: "16시간 전", replies: [] },
+      { id: "c20", user: "qxbnvzmk", avatar: "", text: "0:23 저 부분 진짜 레전드 세현 눈빛이 장난 아님 저만 소름인가요", likes: 89, time: "2시간 전",
+        replies: [
+          { id: "r1", user: "bxnqvzmk", avatar: "", text: "ㅇㅈ 그 파트 볼 때마다 소름ㅠ 나만 그런 게 아니었구나", likes: 12, time: "1시간 전" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "3",
     videoUrl: V2,
     channel: {
       name: "편맛",
@@ -341,7 +473,7 @@ export const videos = [
     ],
   },
   {
-    id: "3",
+    id: "4",
     videoUrl: "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-f338d540-9e07-413b-b6d9-6588e5363d80-1_qj7JfiwI.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1mMzM4ZDU0MC05ZTA3LTQxM2ItYjZkOS02NTg4ZTUzNjNkODAtMV9xajdKZml3SS5tcDQiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxMzgyMzEyLCJleHAiOjE4MTI5MTgzMTJ9.6PieRTLrgHJlWCodD6Q3BO1YKmXJCo5HCllobeEYtpw",
     channel: { name: "감동집합소", handle: "@kamdongcollector", avatarUrl: CHANNEL_AVATARS.kamdongcollector, verified: false },
     title: "바쁘다는 이유로 자꾸 미뤘던 산책, 강아지는 언제나 우리만 기다리고 있었습니다 🐶 #강아지 #반려견 #감동영상 #가족",
@@ -413,7 +545,7 @@ export const videos = [
     ],
   },
   {
-    id: "4",
+    id: "5",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
     channel: { name: "코딩하는 태호", handle: "@taehodev", avatarUrl: CHANNEL_AVATARS.taeho, verified: true },
     title: "JavaScript 이거 모르면 면접 탈락 🔥 #코딩 #개발 #자바스크립트 #취업",
@@ -428,7 +560,7 @@ export const videos = [
     ],
   },
   {
-    id: "5",
+    id: "6",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
     channel: { name: "뷰티 by 하은", handle: "@haeunbeauty", avatarUrl: CHANNEL_AVATARS.haeun, verified: false },
     title: "5분 완성 데일리 메이크업 ✨ #뷰티 #메이크업 #데일리룩 #꿀팁",
