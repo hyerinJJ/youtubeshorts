@@ -32,7 +32,7 @@ export default function IntroOverlay({ show, onDismiss }) {
           답은 <span style={bold}>맨 아래에</span>..
         </p>
       </div>
-      <p className="text-white/50 text-sm mt-8 tracking-wide">탭하여 시작</p>
+      <p className="text-white/50 text-base mt-8 tracking-wide">탭하여 시작</p>
     </div>
   );
 }
