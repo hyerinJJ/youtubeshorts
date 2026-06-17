@@ -128,7 +128,7 @@ export default function CommentSheet({
 
       {/* 시트 */}
       <div
-        className={`relative w-full max-w-[430px] bg-white rounded-t-2xl flex flex-col overflow-hidden ${
+        className={`relative w-full max-w-[430px] lg:max-w-[calc(100dvh*9/16)] bg-white rounded-t-2xl flex flex-col overflow-hidden ${
           isOpen && !isDragging && dragOffset === 0 ? "animate-slide-up" : ""
         }`}
         style={{

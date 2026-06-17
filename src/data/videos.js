@@ -360,7 +360,7 @@ export const videos = [
     },
     title: "외국인들이 이걸 진짜 좋아한다고? 🏪 #편의점 #편맛 #koreanfood #불닭볶음면",
     music: "외국인이 뽑은 한국 편의점 음식 TOP 10",
-    likes: 31800,
+    likes: 12000,
     comments: 634,
     shares: 1203,
     comments_data: [
@@ -481,7 +481,7 @@ export const videos = [
     channel: { name: "감동집합소", handle: "@kamdongcollector", avatarUrl: CHANNEL_AVATARS.kamdongcollector, verified: false },
     title: "바쁘다는 이유로 자꾸 미뤘던 산책, 강아지는 언제나 우리만 기다리고 있었습니다 🐶 #강아지 #반려견 #감동영상 #가족",
     music: "강아지가 평생 기억하는 보호자의 행동 7가지",
-    likes: 12800, comments: 100, shares: 742,
+    likes: 12800, comments: 639, shares: 742,
     comments_data: [
       { id: "c1", user: "monglove92", avatar: "", text: "꼬리 흔들면서 기다리는 모습이 너무 귀여운데 왜 이렇게 마음이 아프지ㅠ 오늘은 퇴근하자마자 산책부터 나가야겠다", likes: 2843, time: "4일 전", replies: [
         { id: "r1", user: "happy_dogday", avatar: "", text: "저도 이 댓글 보고 야근 끝나고 짧게라도 다녀왔어요 표정이 바로 밝아지더라고요", likes: 423, time: "4일 전" },

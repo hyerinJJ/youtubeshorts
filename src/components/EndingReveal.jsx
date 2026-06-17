@@ -69,34 +69,16 @@ export default function EndingReveal({ show, revealPhase, revealLineIndex, fadeT
 }
 
 function renderLine(line, isFinal) {
-  if (line.startsWith("정답은")) {
-    return (
-      <>
-        {line.split('"').map((part, pi) =>
-          pi % 2 === 1 ? (
-            <span key={pi} style={{ color: "#fff", fontWeight: 600 }}>
-              "{part}"
-            </span>
-          ) : (
-            part
-          )
-        )}
-      </>
-    );
-  }
-  if (isFinal) {
-    return <HighlightAI text={line} />;
-  }
-  return line;
+  return <HighlightAI text={line} isFinal={isFinal} />;
 }
 
-function HighlightAI({ text }) {
+function HighlightAI({ text, isFinal }) {
   const parts = text.split(/(AI)/);
   return (
     <>
       {parts.map((part, i) =>
         part === "AI" ? (
-          <span key={i} style={{ color: "#7ca8f0", fontWeight: 600 }}>
+          <span key={i} style={{ color: isFinal ? "#7ca8f0" : "#a8c8ff", fontWeight: 700 }}>
             AI
           </span>
         ) : (
