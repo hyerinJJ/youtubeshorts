@@ -185,7 +185,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
 
                   const mainLines = 6;
                   for (let i = 0; i < mainLines; i++) {
-                    safeTimeout(() => setRevealLineIndex(i), i * 1000);
+                    safeTimeout(() => setRevealLineIndex(i), i * 1800);
                   }
 
                   safeTimeout(() => {
@@ -196,7 +196,7 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
                       setPhase(6);
                       const middleLines = 4;
                       for (let i = 0; i < middleLines; i++) {
-                        safeTimeout(() => setRevealLineIndex(i), i * 1000);
+                        safeTimeout(() => setRevealLineIndex(i), i * 1800);
                       }
 
                       safeTimeout(() => {
@@ -207,18 +207,18 @@ export function useEndingSequence({ onOpenComments, onCloseComments, onResetFeed
                           setPhase(7);
                           const finalLines = 6;
                           for (let i = 0; i < finalLines; i++) {
-                            safeTimeout(() => setRevealLineIndex(i), i * 1000);
+                            safeTimeout(() => setRevealLineIndex(i), i * 1800);
                           }
 
                           safeTimeout(() => {
                             setPhase(8);
                             fadeOutAudio(4000);
                             resetTimerRef.current = setTimeout(() => resetAll(), 5000);
-                          }, (finalLines - 1) * 1000 + 500);
+                          }, (finalLines - 1) * 1800 + 500);
                         }, 800);
-                      }, middleLines * 1000 + 500);
+                      }, middleLines * 1800 + 500);
                     }, 800);
-                  }, mainLines * 1000 + 500);
+                  }, mainLines * 1800 + 500);
                 }, 500);
               }, 400);
             }, 1000);
