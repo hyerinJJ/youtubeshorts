@@ -15,9 +15,11 @@ export default function IntroOverlay({ show, onDismiss }) {
           wordBreak: "keep-all",
         }}
       >
-        쇼츠와 댓글을 자유롭게 감상해주세요!{" "}
+        이 중에 몇 개의 쇼츠가 AI 생성물일까요?
         <br />
-        마지막 쇼츠까지 꼭 봐주세요!
+        댓글에 힌트가 있으니 잘 살펴보세요!
+        <br />
+        답은 맨 아래에..
       </p>
       <p className="text-white/50 text-sm mt-8 tracking-wide">탭하여 시작</p>
     </div>
