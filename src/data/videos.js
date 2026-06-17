@@ -1,9 +1,12 @@
-const V1 = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-f338d540-9e07-413b-b6d9-6588e5363d80-1_qj7JfiwI.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1mMzM4ZDU0MC05ZTA3LTQxM2ItYjZkOS02NTg4ZTUzNjNkODAtMV9xajdKZml3SS5tcDQiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxNzIwMTMyLCJleHAiOjE4MTMyNTYxMzJ9.TmDJYk4wVLUq_VafQBhaELG3Rj1YzfdvU968KfVvTO4";
+const V1 = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-c8d40f29-6388-47b9-80ba-c0024aff547d_fQxU6h62.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1jOGQ0MGYyOS02Mzg4LTQ3YjktODBiYS1jMDAyNGFmZjU0N2RfZlF4VTZoNjIubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTcyMTk3OCwiZXhwIjoxODEzMjU3OTc4fQ.b_1IhU-xiKkJD_VYVLQZNWmtB8fJ0seWn9Om-O_rqx0";
 const V2 = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-20fe131f-5399-4e09-a404-a70f8d3ed0c0_PBf2TKN8.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS0yMGZlMTMxZi01Mzk5LTRlMDktYTQwNC1hNzBmOGQzZWQwYzBfUEJmMlRLTjgubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTM3MTc1NCwiZXhwIjoxODEyOTA3NzU0fQ.rIkhDhz_biFNK2PCABjwyCnnZjENpVdRSSUZDlKtgoc";
 
 const V_IDOL = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-b2b8d8f6-3f26-4eda-8682-e331c9311df7_lSqMAn5S.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1iMmI4ZDhmNi0zZjI2LTRlZGEtODY4Mi1lMzMxYzkzMTFkZjdfbFNxTUFuNVMubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTM3MTkxMiwiZXhwIjoxODEyOTA3OTEyfQ.OW-Vo_b9e_PG-JQm7NVpL9xQiPK-K7w21JusgCRMXQI";
 
+const V3 = "https://ktyvniablmkiawvhzoii.supabase.co/storage/v1/object/sign/videos/copy-d4181b64-eb45-44bd-b87e-85f0e97e477d_prC15CdU.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80MmFhN2NjOS0yODMyLTQ4OGEtODlhOS1hMDM5ZjIxMjYxNWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3MvY29weS1kNDE4MWI2NC1lYjQ1LTQ0YmQtYjg3ZS04NWYwZTk3ZTQ3N2RfcHJDMTVDZFUubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTcyMTYwMiwiZXhwIjoxODEzMjU3NjAyfQ.fuNjjf5gF1ae65-Iusnh0SMBd82IZ9twKxXlBEuH518";
+
 const CHANNEL_AVATARS = {
+  moviecookie: "https://picsum.photos/seed/moviecookie-film/160/160",
   dietforever: "https://picsum.photos/seed/dietforever-body/160/160",
   idollist: "https://loremflickr.com/160/160/cat?lock=7101",
   pyeonmat: "https://picsum.photos/seed/pyeonmat-landscape/160/160",
@@ -546,32 +549,124 @@ export const videos = [
   },
   {
     id: "5",
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-    channel: { name: "코딩하는 태호", handle: "@taehodev", avatarUrl: CHANNEL_AVATARS.taeho, verified: true },
-    title: "JavaScript 이거 모르면 면접 탈락 🔥 #코딩 #개발 #자바스크립트 #취업",
-    music: "신입 개발자 면접에서 가장 많이 틀리는 JavaScript 질문",
-    likes: 89100, comments: 2103, shares: 5678,
+    videoUrl: V3,
+    channel: {
+      name: "무비쿠키",
+      handle: "@moviecookie",
+      avatarUrl: CHANNEL_AVATARS.moviecookie,
+      verified: false,
+    },
+    title: "신인 배우 뺨 만지는 애드립에 최정식이 맞받아친 방법 🎬 #악의전이 #최정식 #연기 #넷플릭스",
+    music: "넷플릭스 악의 전이 레전드 장면 모음｜최정식 역대급 애드립 대처",
+    likes: 47200,
+    comments: 891,
+    shares: 6340,
     comments_data: [
-      { id: "c1", user: "취준생", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=jobseeker", text: "면접에서 실제로 저 질문 받았는데 대답 못했어요 ㅠㅠ", likes: 343, time: "5일 전",
-        replies: [{ id: "r1", user: "코딩하는 태호", avatar: CHANNEL_AVATARS.taeho, text: "이제 알았으니까 다음엔 잘 하실 수 있어요! 화이팅 💪", likes: 112, time: "5일 전" }],
+      { id: "c0a", user: "mvck_01", avatar: "", text: "1빠", likes: 0, time: "4일 전", replies: [] },
+      { id: "c0b", user: "mvck_02", avatar: "", text: "2빠다ㄷㄷ", likes: 0, time: "4일 전", replies: [] },
+      { id: "c1", user: "cine_lover_k", avatar: "", text: "최정식 선생님 저 상황에서 저런 대사가 나오는 게 말이 됩니까 진짜 레전드 맞아요 소름 돋음", likes: 4823, time: "4일 전",
+        replies: [
+          { id: "r1", user: "drama_fan_j", avatar: "", text: "ㄹㅇ 즉흥으로 저 대사가 나온다는 게 얼마나 내공이 깊은 분인지", likes: 892, time: "4일 전" },
+          { id: "r2", user: "actor_nerd_p", avatar: "", text: "연기 20년 이상 하신 분이라 그게 가능한 거죠 진짜 경력이 몸에 배인 것", likes: 456, time: "3일 전" },
+        ],
       },
-      { id: "c2", user: "주니어개발자", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=junior", text: "클로저 개념이 항상 헷갈렸는데 이렇게 설명하니 이해됐어요!", likes: 289, time: "3일 전", replies: [] },
-      { id: "c3", user: "CS전공자", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=csmajor", text: "호이스팅도 다뤄주실 수 있나요?", likes: 134, time: "2일 전", replies: [] },
-    ],
-  },
-  {
-    id: "6",
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-    channel: { name: "뷰티 by 하은", handle: "@haeunbeauty", avatarUrl: CHANNEL_AVATARS.haeun, verified: false },
-    title: "5분 완성 데일리 메이크업 ✨ #뷰티 #메이크업 #데일리룩 #꿀팁",
-    music: "초보도 실패 없는 데일리 메이크업 풀버전",
-    likes: 45600, comments: 678, shares: 1890,
-    comments_data: [
-      { id: "c1", user: "뷰린이", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=beautybegin", text: "파운데이션 브랜드가 뭐예요? 완전 자연스러워요", likes: 134, time: "6일 전",
-        replies: [{ id: "r1", user: "뷰티 by 하은", avatar: CHANNEL_AVATARS.haeun, text: "맥 스튜디오 핏 써요! 커버력이 최고예요 😊", likes: 67, time: "6일 전" }],
+      { id: "c2", user: "shock_10kg", avatar: "", text: "잠깐 최정식 배우님이 이 작품 위해서 살을 10kg이나 찌우셨다고요?? 그 몸이 원래 몸이 아니었던 거임??", likes: 6102, time: "4일 전",
+        replies: [
+          { id: "r1", user: "moviecookie", avatar: "", text: "네 맞아요!! 캐릭터 표현 위해 의도적으로 증량하셨어요 그것도 레전드 포인트 중 하나예요 🎬", likes: 1234, time: "4일 전" },
+          { id: "r2", user: "health_respect_m", avatar: "", text: "배우가 캐릭터 위해 몸을 저렇게까지 바꾸다니 진짜 프로 중에 프로다", likes: 789, time: "3일 전" },
+          { id: "r3", user: "wow_factor_s", avatar: "", text: "10kg 증량이 얼마나 힘든 건지 알면서도 작품을 위해 하신 거잖아요 진심 존경", likes: 567, time: "3일 전" },
+        ],
       },
-      { id: "c2", user: "메이크업러버", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=makeuper", text: "쌍꺼풀 없는 사람도 할 수 있는 버전도 알려주세요!", likes: 178, time: "4일 전", replies: [] },
-      { id: "c3", user: "직장인A", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=worker", text: "출근 전에 5분이면 진짜 되나요?? 도전해봐야겠다", likes: 92, time: "2일 전", replies: [] },
+      { id: "c3", user: "rude_rookie_mad", avatar: "", text: "신인 배우가 선배 뺨을 만지는 게 애드립으로 통한다고?? 그거 그냥 싸가지 없는 거 아님 ㄹㅇ 어디서 배운 거야", likes: 3841, time: "4일 전",
+        replies: [
+          { id: "r1", user: "agree_100", avatar: "", text: "동의함 아무리 애드립이라도 선배 배우 신체에 손대는 건 선 넘은 거죠", likes: 1203, time: "3일 전" },
+          { id: "r2", user: "actor_etiquette", avatar: "", text: "연기 현장 에티켓 기본 중 기본인데 신체 접촉은 사전 협의가 필수라고 배우잖아요", likes: 934, time: "3일 전" },
+          { id: "r3", user: "defend_rookie_x", avatar: "", text: "그래도 현장 분위기 띄우려고 한 거 아닐까요 너무 몰아붙이지 마요", likes: 78, time: "3일 전" },
+          { id: "r4", user: "no_excuse_y", avatar: "", text: "분위기 띄우는 것도 방법이 있죠 선배 배우 허락도 없이 손대는 건 아니에요", likes: 892, time: "2일 전" },
+        ],
+      },
+      { id: "c4", user: "choi_personality", avatar: "", text: "최정식 선생님 평소에도 후배들한테 정말 잘 챙겨주시는 분이라고 유명하던데 이 장면에서도 느껴지네요", likes: 2934, time: "3일 전",
+        replies: [
+          { id: "r1", user: "industry_insider", avatar: "", text: "맞아요 세트장에서 스태프들한테도 진짜 예의 바르게 대하신다고 들었어요", likes: 678, time: "3일 전" },
+          { id: "r2", user: "respect_senior", avatar: "", text: "저런 분이 선배 배우이어야 후배들이 제대로 배우죠", likes: 445, time: "2일 전" },
+        ],
+      },
+      { id: "c5", user: "netflix_fan_a", avatar: "", text: "악의 전이 정주행하다가 이 장면에서 입 떡 벌어짐 최정식 배우님 진짜 넘사벽이다", likes: 2178, time: "3일 전",
+        replies: [
+          { id: "r1", user: "binge_watch_b", avatar: "", text: "저도 저 장면에서 멈추고 두 번 더 봤어요 ㄹㅇ 소름 돋음", likes: 312, time: "3일 전" },
+        ],
+      },
+      { id: "c6", user: "ad_lib_god", avatar: "", text: "저 순간에 저런 대사가 나오는 게 즉흥인 게 믿기지가 않는다 뇌가 다른 분이심", likes: 3102, time: "3일 전", replies: [] },
+      { id: "c7", user: "newbie_dislike", avatar: "", text: "신인 배우 이름이 뭔데 저런 짓을 함 ㄹㅇ 연기보다 에티켓부터 배워야 할 것 같은데", likes: 1567, time: "3일 전",
+        replies: [
+          { id: "r1", user: "fair_point_z", avatar: "", text: "공개적으로 이름 거론하기 보단 그냥 최정식 선생님 대처에 집중하는 게 낫지 않을까요", likes: 234, time: "2일 전" },
+          { id: "r2", user: "still_mad_c", avatar: "", text: "그래도 저게 허락된 애드립인지 그냥 선 넘은 건지는 확인해봐야 하지 않나요", likes: 345, time: "2일 전" },
+        ],
+      },
+      { id: "c8", user: "weight_gain_wow", avatar: "", text: "10kg 증량하고 저런 연기력까지 진짜 이 작품에 모든 걸 쏟아부으신 거네 대단하다", likes: 1834, time: "2일 전", replies: [] },
+      { id: "c9", user: "pro_actor_talk", avatar: "", text: "진짜 프로는 위기 상황에서 빛나는 거라는 말을 저 장면에서 느꼈어요 편집 안 하고 살린 게 맞죠?", likes: 2341, time: "2일 전",
+        replies: [
+          { id: "r1", user: "moviecookie", avatar: "", text: "실제로 감독님이 저 장면 보고 NG 안 내고 바로 오케이 하셨다고 해요 🎬", likes: 567, time: "2일 전" },
+          { id: "r2", user: "director_choice", avatar: "", text: "감독님 판단이 탁월하다 저 장면을 살린 게 영화의 명장면이 된 거잖아요", likes: 312, time: "1일 전" },
+        ],
+      },
+      { id: "c10", user: "rude_behavior_d", avatar: "", text: "신인이면 더 조심해야지 왜 그러는 건지 진짜 이해 안 됨 선배 배우한테 뺨을 만져요?", likes: 1923, time: "2일 전",
+        replies: [
+          { id: "r1", user: "same_anger_e", avatar: "", text: "ㄹㅇ 저게 자유로운 표현이 아니라 그냥 예의 없는 거임", likes: 678, time: "2일 전" },
+        ],
+      },
+      { id: "c11", user: "kind_senior_f", avatar: "", text: "최정식 선생님이 그냥 화내거나 중단시키지 않고 저렇게 대사로 받아넘기신 게 진짜 품격이다", likes: 2567, time: "2일 전", replies: [] },
+      { id: "c12", user: "10kg_dedication", avatar: "", text: "작품 위해 10kg 증량, 현장에서 즉흥 대사로 위기 커버... 이런 배우가 진짜 배우죠", likes: 3124, time: "1일 전",
+        replies: [
+          { id: "r1", user: "true_actor_g", avatar: "", text: "ㄹㅇ 작품에 대한 헌신과 현장 경험치가 만들어낸 결과물임", likes: 445, time: "1일 전" },
+          { id: "r2", user: "respect_all_h", avatar: "", text: "저런 분이 있어야 한국 드라마 수준이 올라가는 거죠", likes: 312, time: "1일 전" },
+        ],
+      },
+      { id: "c13", user: "netflix_recommend", avatar: "", text: "악의 전이 안 보신 분들 이 장면 때문에라도 보세요 진짜 최정식 배우님 미쳤음", likes: 1678, time: "1일 전", replies: [] },
+      { id: "c14", user: "character_praise_i", avatar: "", text: "예전에 인터뷰에서 최정식 선생님이 스태프들 이름 다 외우고 생일도 챙겨준다고 들었는데 진짜 그런 분이실 것 같음", likes: 1934, time: "1일 전",
+        replies: [
+          { id: "r1", user: "warm_person_j", avatar: "", text: "ㄹㅇ 현장에서 막내 스태프한테도 허리 굽혀 인사한다는 얘기도 들었어요", likes: 523, time: "23시간 전" },
+          { id: "r2", user: "moviecookie", avatar: "", text: "맞아요 현장에서 정평이 나 있는 분이에요 🎬 실력이랑 인성 둘 다 최고", likes: 389, time: "22시간 전" },
+        ],
+      },
+      { id: "c15", user: "impromptu_master", avatar: "", text: "저 대사 즉흥이라는 게 믿기지가 않는다 보통 사람이면 당황해서 멈추거나 NG냈을 텐데", likes: 2102, time: "23시간 전", replies: [] },
+      { id: "c16", user: "rookie_manners", avatar: "", text: "아무리 분위기 메이커 하고 싶어도 선배 배우 얼굴에 손대는 건 진짜 아닌 것 같아요 기본 예의를 모르는 건지", likes: 1456, time: "22시간 전",
+        replies: [
+          { id: "r1", user: "etiquette_check", avatar: "", text: "연기 학원에서 그런 것도 안 가르쳐주나요 기본 중의 기본인데", likes: 345, time: "21시간 전" },
+        ],
+      },
+      { id: "c17", user: "scene_rewatch", avatar: "", text: "이 장면만 열 번은 본 것 같음 볼 때마다 소름이 돋음 최정식 선생님 진짜 대배우", likes: 1789, time: "21시간 전", replies: [] },
+      { id: "c18", user: "weight_method_k", avatar: "", text: "10kg 찌우는 것도 배우의 건강을 위험에 빠뜨리는 건데 그걸 감수하고 하신 거잖아요 작품에 대한 헌신이 대단함", likes: 2234, time: "19시간 전",
+        replies: [
+          { id: "r1", user: "health_concern_l", avatar: "", text: "요요 오실까봐 걱정되기도 하는데 그런 것도 다 감수하고 하신 거라 더 존경스러워요", likes: 189, time: "18시간 전" },
+        ],
+      },
+      { id: "c19", user: "drama_reaction_m", avatar: "", text: "악의 전이 보면서 최정식 선생님 장면마다 입이 안 다물어짐 이 분이 없었으면 이 드라마 반도 못 됐다고 생각해요", likes: 2678, time: "17시간 전", replies: [] },
+      { id: "c20", user: "bad_rookie_anger", avatar: "", text: "신인 배우가 저런 짓을 했으면 감독이나 제작진에서 제지를 했어야 하는 거 아닌가요 최정식 선생님이 혼자 감당하신 거잖아요", likes: 1923, time: "15시간 전",
+        replies: [
+          { id: "r1", user: "production_issue_n", avatar: "", text: "맞아요 제작진 측에서도 관리가 안 된 것 같은데 최정식 선생님이 수습하신 거죠", likes: 567, time: "14시간 전" },
+          { id: "r2", user: "lesson_learned_o", avatar: "", text: "저 신인 배우가 이 장면 보고 많이 배웠으면 좋겠어요 진짜", likes: 312, time: "13시간 전" },
+        ],
+      },
+      { id: "c21", user: "movie_buff_p", avatar: "", text: "이 채널 덕분에 악의 전이 정주행 시작했습니다 최정식 배우님 팬 됐어요", likes: 1234, time: "12시간 전",
+        replies: [
+          { id: "r1", user: "moviecookie", avatar: "", text: "오오 잘 결정하셨어요!! 후회 없으실 거예요 😄🎬", likes: 234, time: "11시간 전" },
+        ],
+      },
+      { id: "c22", user: "class_difference", avatar: "", text: "신인이랑 최정식 선생님 사이의 연기 내공 차이가 이 한 장면에 다 담겨있음 진짜", likes: 1567, time: "10시간 전", replies: [] },
+      { id: "c23", user: "proud_fan_q", avatar: "", text: "최정식 선생님이 한국 배우라는 게 자랑스럽다 진짜 이런 분이 있어서 한드 수준이 높아지는 거죠", likes: 2012, time: "8시간 전", replies: [] },
+      { id: "c24", user: "10kg_again", avatar: "", text: "근데 진짜로 10kg이요?? 저 장면만 보고 왔다가 이 댓글 보고 충격받음", likes: 1789, time: "6시간 전",
+        replies: [
+          { id: "r1", user: "moviecookie", avatar: "", text: "네 실제로 촬영 전에 의도적으로 증량하셨어요!! 캐릭터 때문에요 🎬", likes: 456, time: "5시간 전" },
+          { id: "r2", user: "dedication_wow_r", avatar: "", text: "그러면 저 체형이 원래 체형이 아닌 거네요 와 배우라는 게 정말 대단한 직업이다", likes: 312, time: "4시간 전" },
+        ],
+      },
+      { id: "c25", user: "subscribe_now_s", avatar: "", text: "이 채널 구독했습니다 이런 장면 계속 발굴해줘서 감사해요 몰랐던 장면이었는데", likes: 678, time: "3시간 전", replies: [] },
+      { id: "c26", user: "last_comment_t", avatar: "", text: "명장면 발굴해주셔서 감사해요 최정식 선생님 진짜 대배우셨구나를 다시 한번 느낌", likes: 445, time: "1시간 전",
+        replies: [
+          { id: "r1", user: "moviecookie", avatar: "", text: "앞으로도 이런 숨은 명장면 계속 가져올게요 🎬✨", likes: 189, time: "30분 전" },
+        ],
+      },
     ],
   },
 ];
