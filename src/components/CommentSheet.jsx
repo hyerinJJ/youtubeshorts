@@ -116,6 +116,7 @@ export default function CommentSheet({
 
   return (
     <div
+      data-comment-sheet="true"
       className={`fixed inset-0 z-50 flex items-end justify-center ${
         isOpen ? "visible opacity-100" : "invisible pointer-events-none opacity-0"
       }`}

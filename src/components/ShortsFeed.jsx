@@ -67,7 +67,7 @@ export default function ShortsFeed() {
     if (!container) return;
     const handleWheel = (e) => {
       if (ending.isActive) { e.preventDefault(); return; }
-      // Use actual scrollTop instead of activeIndex state to avoid async lag
+      if (e.target.closest('[data-comment-sheet]')) return;
       const atEnd = container.scrollTop >= container.scrollHeight - container.clientHeight - 2;
       if (atEnd && e.deltaY > 0) {
         e.preventDefault();
@@ -91,6 +91,7 @@ export default function ShortsFeed() {
     const onTouchEnd = (e) => {
       if (ending.isActive) return;
       if (touchStartYRef.current === null) return;
+      if (e.target.closest('[data-comment-sheet]')) { touchStartYRef.current = null; return; }
       const delta = touchStartYRef.current - e.changedTouches[0].clientY;
       const atEnd = container.scrollTop >= container.scrollHeight - container.clientHeight - 2;
       if (atEnd && delta > 50) {
@@ -151,9 +152,9 @@ export default function ShortsFeed() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [activeIndex, ending.isActive]);
 
-  // Mute video audio during ending
+  // Mute and pause video when ending starts
   useEffect(() => {
-    if (ending.phase >= 5) setGlobalMuted(true);
+    if (ending.phase >= 1) setGlobalMuted(true);
   }, [ending.phase]);
 
   return (

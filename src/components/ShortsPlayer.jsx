@@ -41,13 +41,13 @@ export default function ShortsPlayer({
 
   useEffect(() => {
     if (!videoRef.current) return;
-    if (isActive) {
+    if (isActive && !endingActive) {
       videoRef.current.play().catch(() => {});
     } else {
       videoRef.current.pause();
-      videoRef.current.currentTime = 0;
+      if (!isActive) videoRef.current.currentTime = 0;
     }
-  }, [isActive]);
+  }, [isActive, endingActive]);
 
   useEffect(() => {
     if (videoRef.current) {
